@@ -3,7 +3,6 @@ import { Suspense } from 'react'
 // const Dashboard = React.lazy(() => import('@/pages/Dashboard'));
 // const Profile = React.lazy(() => import('@/pages/Profile'));
 
-
 // const ProtectedRoute = ({ children }) => {
 //   const { user } = useSelector((state) => state.user)
 //   const navigate = useNavigate()
@@ -16,27 +15,27 @@ import { Suspense } from 'react'
 //   if (user) return children
 // }
 
-const privateRoutes = [
-  {
-    path: '/dashboard',
-    element: (
-      <Suspense fallback={<div>Loading...</div>}>
-        {/* <ProtectedRoute>
-          <Dashboard />
+const privateRoutes = {
+  path: '/management',
+  element: (
+    <Suspense fallback={<div>Loading...</div>}>
+      {/* <ProtectedRoute>
+      // Layout
         </ProtectedRoute> */}
-      </Suspense>
-    ),
-  },
-  {
-    path: '/profile',
-    element: (
-      <Suspense fallback={<div>Loading...</div>}>
-        {/* <ProtectedRoute>
+    </Suspense>
+  ),
+  children: [
+    {
+      index: true,
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          {/* <ProtectedRoute>
           <Profile />
         </ProtectedRoute> */}
-      </Suspense>
-    ),
-  },
-]
+        </Suspense>
+      ),
+    },
+  ],
+}
 
 export default privateRoutes
