@@ -1,43 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const userInit = JSON.parse(localStorage.getItem('user')) ?? null
+const userInit = JSON.parse(localStorage.getItem('user'))
 
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    listUser: [],
-    user: userInit,
+    user: userInit ?? null,
+    isAuthenticated: !!userInit,
     loading: false,
     error: null,
-    success: false,
   },
   reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload
-    },
-
-    getUsersRequest: (state) => {
+    registerRequest: (state) => {
       state.loading = true
     },
-    getUsersSuccess: (state, action) => {
+    registerSuccess: (state) => {
       state.loading = false
-      state.listUser = action.payload
-    },
-    getUsersFailure: (state, action) => {
-      state.loading = false
-      state.error = action.payload
-    },
-
-    createUserRequest: (state) => {
-      state.loading = true
-    },
-    createUserSuccess: (state, action) => {
-      state.loading = false
-      state.listUser.push(action.payload)
-      state.success = true
       state.error = null
     },
-    createUserFailure: (state, action) => {
+    registerFailure: (state, action) => {
       state.loading = false
       state.error = action.payload
     },
@@ -49,39 +30,67 @@ const userSlice = createSlice({
     signInSuccess: (state, action) => {
       state.loading = false
       state.user = action.payload
+      state.isAuthenticated = true
       state.error = null
     },
     signInFailure: (state, action) => {
       state.loading = false
       state.error = action.payload
-      state.user = null
     },
 
-    resetUserState: (state) => {
-      state.loading = false
+    updateUserRequest: (state) => {
+      state.loading = true
       state.error = null
-      state.success = false
+    },
+    updateUserSuccess: (state, action) => {
+      state.loading = false
+      state.user = action.payload
+      state.error = null
+    },
+    updateUserFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    },
+
+    updatePublicPortfolioRequest: (state) => {
+      state.loading = true
+      state.error = null
+    },
+    updatePublicPortfolioSuccess: (state, action) => {
+      state.loading = false
+      tate.user = { ...state.user, isPublic: action.payload }
+      state.error = null
+    },
+    updatePublicPortfolioFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload
     },
 
     signOut: (state) => {
       state.user = null
+      state.isAuthenticated = false
       state.error = null
       state.loading = false
+      localStorage.removeItem('user')
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
     },
   },
 })
 
 export const {
-  getUsersRequest,
-  getUsersSuccess,
-  getUsersFailure,
-  createUserRequest,
-  createUserSuccess,
-  createUserFailure,
+  registerRequest,
+  registerSuccess,
+  registerFailure,
   signInRequest,
   signInSuccess,
   signInFailure,
-  resetUserState,
+  updateUserRequest,
+  updateUserSuccess,
+  updateUserFailure,
+  updatePublicPortfolioRequest,
+  updatePublicPortfolioSuccess,
+  updatePublicPortfolioFailure,
   signOut,
 } = userSlice.actions
 export default userSlice.reducer

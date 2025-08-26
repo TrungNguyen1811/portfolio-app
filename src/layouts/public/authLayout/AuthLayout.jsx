@@ -1,11 +1,13 @@
+import { StyleLayout } from '@/layouts/public/authLayout/styled'
+import { Outlet } from 'react-router-dom'
 
-import { StyleLayout } from '@/layouts/public/authLayout/styled';
-
-const AuthLayout = ({children}) => {
+const AuthLayout = () => {
   return (
-     <StyleLayout>
+    <StyleLayout>
       <div className="auth-left-banner">{/* ảnh, slogan */}</div>
-      <div className="auth-form-wrapper">{children}</div>
+      <div className="auth-form-wrapper">
+        <Outlet /> 
+      </div>
     </StyleLayout>
   )
 }
