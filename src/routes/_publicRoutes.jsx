@@ -1,7 +1,8 @@
-import { Suspense } from 'react'
+import AuthLayout from '@/layouts/public/authLayout/AuthLayout';
+import React, { Suspense } from 'react'
 
-// const Login = React.lazy(() => import('@/pages/Login'));
-// const Register = React.lazy(() => import('@/pages/Register'));
+// const LoginPage = React.lazy(() => import('@/pages/publicPages/signin/LoginPage'));
+const RegisterPage = React.lazy(() => import('@/pages/publicPages/register/RegisterPage'));
 
 
 // const AuthRoute = ({ children }) => {
@@ -22,21 +23,23 @@ const publicRoutes = [
     element: (
       <Suspense fallback={<div>Loading...</div>}>
         {/* <AuthRoute> */}
-          {/* <Login /> */}
+          {/* <LoginPage /> */}
         {/* </AuthRoute> */}
       </Suspense>
     ),
   },
-  // {
-  //   path: '/register',
-  //   element: (
-  //     <Suspense fallback={<div>Loading...</div>}>
-  //       <AuthRoute>
-  //         <Register />
-  //       </AuthRoute>
-  //     </Suspense>
-  //   ),
-  // },
+  {
+    path: '/register',
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        {/* <AuthRoute> */}
+        <AuthLayout>
+          <RegisterPage />
+        </AuthLayout>
+        {/* </AuthRoute> */}
+      </Suspense>
+    ),
+  },
 ]
 
 export default publicRoutes
