@@ -1,18 +1,18 @@
 import React from 'react'
 import { Suspense } from 'react'
-// const Home = React.lazy(() => import('@/pages/Home'));
-const NotFound = React.lazy(() => import('@/pages/notFound'))
+const NotFound = React.lazy(() => import('@/pages/globalPages/notFound'))
+import { Outlet } from 'react-router-dom'
 
 const globalRoutes = {
-  element: <Suspense fallback={<div>Loading...</div>}>{/* layout */}</Suspense>,
+  element: (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Outlet />
+    </Suspense>
+  ),
   children: [
     {
       path: '*',
-      element: (
-        <Suspense fallback={<div>Loading...</div>}>
-          <NotFound />
-        </Suspense>
-      ),
+      element: <NotFound />,
     },
   ],
 }

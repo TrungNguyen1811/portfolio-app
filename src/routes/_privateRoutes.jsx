@@ -1,3 +1,6 @@
+import { PrivateLayout } from '@/layouts'
+import PrivatePages from '@/pages/privatePages'
+import Portfolio from '@/pages/privatePages/portfolio'
 import { Suspense } from 'react'
 
 // const Dashboard = React.lazy(() => import('@/pages/Dashboard'));
@@ -19,21 +22,21 @@ const privateRoutes = {
   path: '/management',
   element: (
     <Suspense fallback={<div>Loading...</div>}>
-      {/* <ProtectedRoute>
-      // Layout
-        </ProtectedRoute> */}
+      <PrivateLayout />
     </Suspense>
   ),
   children: [
     {
       index: true,
-      element: (
-        <Suspense fallback={<div>Loading...</div>}>
-          {/* <ProtectedRoute>
-          <Profile />
-        </ProtectedRoute> */}
-        </Suspense>
-      ),
+      element: <PrivatePages.Portfolio />,
+    },
+    {
+      path: '/management/education',
+      element: <PrivatePages.Education />,
+    },
+    {
+      path: '/management/experience',
+      element: <Portfolio />,
     },
   ],
 }

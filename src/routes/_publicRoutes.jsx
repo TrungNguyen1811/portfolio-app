@@ -1,6 +1,7 @@
 import AuthLayout from '@/layouts/public/authLayout/AuthLayout'
+import Home from '@/pages/globalPages/home'
 import React, { Suspense } from 'react'
-
+import { Outlet } from 'react-router-dom'
 // const LoginPage = React.lazy(() => import('@/pages/publicPages/signin/LoginPage'));
 const RegisterPage = React.lazy(() =>
   import('@/pages/publicPages/register/RegisterPage')
@@ -21,10 +22,14 @@ const RegisterPage = React.lazy(() =>
 const publicRoutes = {
   element: (
     <Suspense fallback={<div>Loading...</div>}>
-      <AuthLayout />
+      <Outlet />
     </Suspense>
   ),
   children: [
+    {
+      path: '/',
+      element: <Home />,
+    },
     {
       path: '/register',
       element: <RegisterPage />,
