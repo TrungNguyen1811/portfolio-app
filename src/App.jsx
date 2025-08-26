@@ -1,6 +1,6 @@
 import './App.css'
-import { RouterProvider } from 'react-router-dom'
-import router from './routes/router.jsx'
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "@/routes/routes";
 import { ConfigProvider } from 'antd'
 
 function App() {
@@ -24,7 +24,9 @@ function App() {
         },
       }}
     >
-      <RouterProvider router={router} />
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
     </ConfigProvider>
   )
 }
