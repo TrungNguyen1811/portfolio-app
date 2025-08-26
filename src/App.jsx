@@ -2,7 +2,6 @@ import './App.css'
 import { RouterProvider } from 'react-router-dom'
 import router from './routes/router.jsx'
 import { ConfigProvider } from 'antd'
-import MessageListener from './components/MessageListener'
 
 function App() {
   return (
@@ -26,7 +25,6 @@ function App() {
       }}
     >
       <RouterProvider router={router} />
-      <MessageListener />
     </ConfigProvider>
   )
 }

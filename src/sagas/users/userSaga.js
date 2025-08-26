@@ -13,7 +13,6 @@ import {
 } from './userSlice'
 
 import USERS_API from '@/services/users'
-import { showMessage } from '../appMessage/appMessageSlice'
 
 function* handleGetUsers() {
   try {
@@ -30,14 +29,12 @@ function* handleCreateUser(action) {
     const newUser = yield call(USERS_API.post, values)
 
     yield put(createUserSuccess(newUser))
-    yield put(showMessage.success('Sign Up Successfully'))
 
     if (callback) {
       yield call(callback)
     }
   } catch (error) {
     yield put(createUserFailure(error.message))
-    yield put(showMessage.error(`Error: ${error.message}`))
   }
 }
 
