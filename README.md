@@ -1,7 +1,7 @@
-# 📝 Todo Kanban App
+# 📝 Portfolio Web App
 
-Ứng dụng quản lý công việc dạng **Kanban Board**, được xây dựng bằng **React + Vite**.  
-Hỗ trợ quản lý task, drag & drop, Redux Toolkit + Saga để xử lý state & side effects.
+Ứng dụng Portfolio cá nhân được xây dựng bằng React + Vite, giúp hiển thị thông tin cá nhân, dự án, kỹ năng và kinh nghiệm làm việc.
+Ứng dụng hỗ trợ quản lý nội dung động, dễ dàng mở rộng và tối ưu hiệu năng.
 
 ---
 
@@ -11,7 +11,7 @@ Hỗ trợ quản lý task, drag & drop, Redux Toolkit + Saga để xử lý sta
 - 🎯 [Redux Toolkit](https://redux-toolkit.js.org/) – state management
 - 🔄 [Redux Saga](https://redux-saga.js.org/) – side effects (async, API)
 - 📡 [Axios](https://axios-http.com/) – gọi API
-- 🎭 [SCSS](https://sass-lang.com/) – styling
+- 🎭 [Ant design](https://ant.design/) + [Styled Component](https://styled-components.com/docs) – ui & styling
 - ✅ [Formik](https://formik.org/) + [Yup](https://github.com/jquense/yup) – form & validation
 
 ---
