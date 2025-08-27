@@ -78,3 +78,4 @@ export default function* userSaga() {
   yield takeEvery(updateUserRequest.type, handleUpdateUser)
   yield takeEvery(updatePublicPortfolioRequest.type, handlePublicPortfolio)
 }
+

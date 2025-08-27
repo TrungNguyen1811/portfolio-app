@@ -7,6 +7,8 @@ const StyledLayout = styled(Layout)`
   gap: 8rem;
   max-width: 128rem;
   background-color: transparent;
+  color: #fff;
   margin: 0 auto;
 `
 export { StyledLayout }
+

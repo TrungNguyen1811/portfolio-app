@@ -8,10 +8,43 @@ import { Suspense } from 'react'
 import Layout from '@/layouts/index'
 import HomePage from '@/pages/globalPages/homePage'
 
-const PortfolioLayout = React.lazy(() => import('@/layouts/public/portfolioLayout/PortfolioLayout'))
+const PortfolioLayout = React.lazy(() =>
+  import('@/layouts/public/portfolioLayout/PortfolioLayout')
+)
 const NotFound = React.lazy(() => import('@/pages/globalPages/notFound'))
 
-const globalRoutes = {
+const portfolioRoute = {
+  path: '/public/:slug',
+  element: (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PortfolioLayout />
+    </Suspense>
+  ),
+  children: [
+    {
+      index: true,
+      element: <About />,
+    },
+    {
+      path: '/public/:slug/test',
+      element: <div>Test Route Works!</div>,
+    },
+    {
+      path: '/public/:slug/experience',
+      element: <Experience />,
+    },
+    {
+      path: '/public/:slug/education',
+      element: <Education />,
+    },
+    {
+      path: '/public/:slug/projects',
+      element: <Project />,
+    },
+  ],
+}
+
+const staticRoutes = {
   path: '/',
   element: (
     <Suspense fallback={<div>Loading...</div>}>
@@ -24,47 +57,13 @@ const globalRoutes = {
       element: <HomePage />,
     },
     {
-      element: <PortfolioLayout />,
-      children: [
-        {
-          path: 'about',
-          element: <About />,
-        },
-        {
-          path: 'test',
-          element: <div>Test Route Works!</div>,
-        },
-        {
-          path: 'experience',
-          element: (
-            <Suspense fallback={<div>Loading...</div>}>
-              <Experience />
-            </Suspense>
-          ),
-        },
-        {
-          path: 'education',
-          element: (
-            <Suspense fallback={<div>Loading...</div>}>
-              <Education />
-            </Suspense>
-          ),
-        },
-        {
-          path: 'projects',
-          element: (
-            <Suspense fallback={<div>Loading...</div>}>
-              <Project />
-            </Suspense>
-          ),
-        },
-      ],
-    },
-    {
       path: '*',
       element: <NotFound />,
     },
   ],
 }
 
+const globalRoutes = [staticRoutes, portfolioRoute]
+
 export default globalRoutes
+

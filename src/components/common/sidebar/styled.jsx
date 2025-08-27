@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import { color } from '@/utils/getColorTheme'
 
 const AsideStyles = styled.aside`
+  h1 {
+    text-align: center;
+  }
   .profile {
     display: flex;
     flex-direction: column;

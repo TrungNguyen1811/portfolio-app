@@ -8,12 +8,19 @@ const StyledLayout = styled(Layout)`
   overflow: hidden;
 
   /* Background: soft blue gradient with subtle radial accents */
-  background:
-    radial-gradient(1200px 600px at -10% 40%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0) 60%) ,
-    radial-gradient(900px 500px at 85% -10%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0) 60%),
+  background: radial-gradient(
+      1200px 600px at -10% 40%,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.6) 40%,
+      rgba(255, 255, 255, 0) 60%
+    ),
+    radial-gradient(
+      900px 500px at 85% -10%,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.4) 45%,
+      rgba(255, 255, 255, 0) 60%
+    ),
     linear-gradient(180deg, #eef5ff 0%, #e6f0ff 40%, #eaf3ff 100%);
-
-
 
   /* Bottom curved white wave */
   &::after {
@@ -26,7 +33,7 @@ const StyledLayout = styled(Layout)`
     background: #fff;
     border-top-left-radius: 60% 100%;
     border-top-right-radius: 60% 100%;
-    box-shadow: 0 -2px 0 rgba(0,0,0,0.02) inset;
+    box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.02) inset;
   }
 
   /* Small decorative dots */
@@ -34,8 +41,11 @@ const StyledLayout = styled(Layout)`
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(6px 6px at 20% 30%, #ffd54f 99%, transparent 100%),
+    background: radial-gradient(
+        6px 6px at 20% 30%,
+        #ffd54f 99%,
+        transparent 100%
+      ),
       radial-gradient(5px 5px at 75% 40%, #7c4dff 99%, transparent 100%),
       radial-gradient(4px 4px at 65% 70%, #00e5ff 99%, transparent 100%),
       radial-gradient(3px 3px at 90% 80%, #4caf50 99%, transparent 100%);
