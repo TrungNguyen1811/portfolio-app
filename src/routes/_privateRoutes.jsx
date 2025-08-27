@@ -1,4 +1,4 @@
-import { PrivateLayout } from '@/layouts'
+import PrivateLayout from '@/layouts/private/PrivateLayout'
 import PrivatePages from '@/pages/privatePages'
 import Portfolio from '@/pages/privatePages/portfolio'
 import { Suspense } from 'react'
@@ -42,3 +42,4 @@ const privateRoutes = {
 }
 
 export default privateRoutes
+

@@ -1,7 +1,9 @@
 import './App.css'
-import { BrowserRouter } from "react-router-dom";
-import AppRoutes from "@/routes/routes";
+import { BrowserRouter } from 'react-router-dom'
+import AppRoutes from '@/routes/routes'
 import { ConfigProvider } from 'antd'
+import { ThemeProvider } from 'styled-components'
+import { theme } from './constants/theme'
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
           colorComplete: '#52c41a',
           colorInProgress: '#faad14',
           colorInComplete: '#f5222d',
+          fontFamily: "'Quicksand', 'Segoe UI', Roboto, sans-serif",
         },
         components: {
           Menu: {
@@ -24,11 +27,14 @@ function App() {
         },
       }}
     >
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </ThemeProvider>
     </ConfigProvider>
   )
 }
 
 export default App
+
