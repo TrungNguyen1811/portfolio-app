@@ -1,66 +1,80 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
 
 import {
-  createUserSuccess,
-  createUserFailure,
-  createUserRequest,
-  getUsersSuccess,
-  getUsersFailure,
-  getUsersRequest,
+  registerRequest,
+  registerSuccess,
+  registerFailure,
   signInSuccess,
   signInFailure,
   signInRequest,
+  updateUserRequest,
+  updateUserSuccess,
+  updateUserFailure,
+  updatePublicPortfolioRequest,
+  updatePublicPortfolioSuccess,
+  updatePublicPortfolioFailure,
 } from './userSlice'
 
 import USERS_API from '@/services/users'
+import AUTH_API from '@/services/auth'
 
-function* handleGetUsers() {
-  try {
-    const users = yield call(USERS_API.getAll)
-    yield put(getUsersSuccess(users))
-  } catch (error) {
-    yield put(getUsersFailure(error.message))
-  }
-}
-
-function* handleCreateUser(action) {
+function* handleRegister(action) {
   try {
     const { values, callback } = action.payload
-    const newUser = yield call(USERS_API.post, values)
+    const newUser = yield call(AUTH_API.postRegister, values)
 
-    yield put(createUserSuccess(newUser))
+    yield put(registerSuccess(newUser))
 
     if (callback) {
       yield call(callback)
     }
   } catch (error) {
-    yield put(createUserFailure(error.message))
+    yield put(registerFailure(error.message))
   }
 }
 
 function* handleSignIn(action) {
   try {
-    const { username, password } = action.payload
+    const { values, callback } = action.payload
 
-    const users = yield call(USERS_API.get)
+    const data = yield call(AUTH_API.postLogin, values)
 
-    const matchedUser = users.find(
-      (u) => u.username === username && u.password === password
-    )
-
-    if (matchedUser) {
-      localStorage.setItem('user', JSON.stringify(matchedUser))
-      yield put(signInSuccess(matchedUser))
-    } else {
-      yield put(signInFailure('Incorrect username or password'))
+    localStorage.setItem('user', JSON.stringify(data.user))
+    localStorage.setItem('accessToken', JSON.stringify(data.accessToken))
+    localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken))
+    yield put(signInSuccess(data.user))
+    if (callback) {
+      yield call(callback)
     }
   } catch (error) {
     yield put(signInFailure(error.message))
   }
 }
 
+function* handleUpdateUser(action) {
+  try {
+    const { values, callback } = action.payload
+
+    const user = yield call(USER_API.put, values)
+    yield put(updateUserSuccess(user))
+  } catch (error) {
+    yield put(updateUserFailure(error.message))
+  }
+}
+
+function* handlePublicPortfolio(action) {
+  try {
+    const { values, callback } = action.payload
+    const data = yield call(USERS_API.putPublicPortfolio, values)
+    yield put(updatePublicPortfolioSuccess(data))
+  } catch (error) {
+    yield put(updatePublicPortfolioFailure(data))
+  }
+}
+
 export default function* userSaga() {
-  yield takeEvery(createUserRequest.type, handleCreateUser)
-  yield takeEvery(getUsersRequest.type, handleGetUsers)
+  yield takeEvery(registerRequest.type, handleRegister)
   yield takeEvery(signInRequest.type, handleSignIn)
+  yield takeEvery(updateUserRequest.type, handleUpdateUser)
+  yield takeEvery(updatePublicPortfolioRequest.type, handlePublicPortfolio)
 }

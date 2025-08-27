@@ -27,8 +27,7 @@ const PrivateSidebar = ({ collapsed, setCollapsed }) => {
   const handleMenuClick = ({ key }) => {
     if (key === 'signout') {
       dispatch(signOut())
-      localStorage.removeItem('user')
-      navigate('/sign-in')
+      navigate('/login')
     } else {
       navigate(key)
     }

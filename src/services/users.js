@@ -1,32 +1,30 @@
-import instance from "./axios";
+import instance from './axios'
 
 const USERS_API = {
-  get: async () => {
-    const res = await instance.get("/users");
-    return res.data;
-  },
-
-  post: async (data) => {
-    delete data["id"];
-    const res = await instance.post(`/users`, { ...data });
-    return res.data;
-  },
-
   put: async (user) => {
-    const res = await instance.put(`/users/${user.id}`, {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      username: user.username,
-      email: user.email,
-      password: user.password,
-    });
-    return res.data;
+    try {
+      const res = await instance.put(`/users/update-myself`, {
+        fullname: user.fullname,
+        email: user.email,
+      })
+
+      return res.data
+    } catch (error) {
+      throw error.message
+    }
   },
 
-  delete: async (id) => {
-    const res = await instance.delete(`/users/${id}`);
-    return res.data;
-  },
-};
+  putPublicPortfolio: async (isPublic) => {
+    try {
+      const res = await instance.put(`/users/set-public-portfolio`, {
+        isPublic: isPublic,
+      })
 
-export default USERS_API;
+      return res.data
+    } catch (error) {
+      throw error.message
+    }
+  },
+}
+
+export default USERS_API
