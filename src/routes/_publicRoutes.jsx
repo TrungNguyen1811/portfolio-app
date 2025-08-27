@@ -3,7 +3,7 @@ import Home from '@/pages/globalPages/home'
 import React, { Suspense } from 'react'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterPage = React.lazy(() =>
   import('@/pages/publicPages/register/RegisterPage')
@@ -28,7 +28,7 @@ const publicRoutes = {
   element: (
     <Suspense fallback={<div>Loading...</div>}>
       <AuthRoute>
-       <AuthLayout />
+        <AuthLayout />
       </AuthRoute>
     </Suspense>
   ),
@@ -42,3 +42,4 @@ const publicRoutes = {
 }
 
 export default publicRoutes
+

@@ -2,7 +2,8 @@ import { Outlet } from 'react-router-dom'
 import { Layout } from 'antd'
 import { useState } from 'react'
 
-import { PrivateHeader, PrivateSidebar } from '@/components'
+import PrivateHeader from '@/components/privateHeader/index'
+import PrivateSidebar from '@/components/privateSidebar/index'
 import { ContentStyle, PrivateLayoutStyle } from './styled'
 import { Typography } from 'antd'
 import { Divider } from 'antd'
@@ -54,3 +55,4 @@ function PrivateLayout() {
   )
 }
 export default PrivateLayout
+

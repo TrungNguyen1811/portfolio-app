@@ -4,7 +4,8 @@ import publicRoutes from './_publicRoutes'
 import globalRoutes from './_globalRoutes'
 
 function AppRoutes() {
-  return useRoutes([privateRoutes, publicRoutes, globalRoutes])
+  return useRoutes([globalRoutes, privateRoutes, publicRoutes])
 }
 
 export default AppRoutes
+
