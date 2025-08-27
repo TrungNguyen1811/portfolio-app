@@ -1,7 +1,6 @@
 import { WIDTH_CARD } from '@/constants/styleWidth'
 
 export const getWidthCard = (screens) => {
-  console.log(screens)
   if (screens.md) {
     return WIDTH_CARD.TABLET
   }

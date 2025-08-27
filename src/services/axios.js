@@ -37,18 +37,18 @@ instance.interceptors.response.use(
             refreshToken: refreshToken,
           }
         )
-        const { token } = response.data
+        const { accessToken } = response.data
         // Store the new access and refresh tokens.
-        localStorage.setItem('accessToken', token)
+        localStorage.setItem('accessToken', accessToken)
         // Update the authorization header with the new access token.
-        instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        instance.defaults.headers.common[
+          'Authorization'
+        ] = `Bearer ${accessToken}`
         return instance(originalRequest) // Retry the original request with the new access token.
       } catch (refreshError) {
         // Handle refresh token errors by clearing stored tokens and redirecting to the login page.
         // console.error('accessToken refresh failed:', refreshError)
-        localStorage.removeItem('user')
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('refreshToken')
+        localStorage.clear()
         window.location.href = '/login'
         return Promise.reject(refreshError)
       }
