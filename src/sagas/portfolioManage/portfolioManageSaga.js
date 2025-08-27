@@ -10,7 +10,7 @@ import {
   updatePortfolioFailure,
 } from './portfolioManageSlice'
 
-import PORTFOLIO_API from '@/services/portfolio'
+import { PORTFOLIO_API } from '@/services/portfolio'
 
 function* handleGetPortfolioInfo() {
   try {
@@ -41,3 +41,4 @@ export default function* portfolioManageSaga() {
   yield takeEvery(getPortfolioRequest.type, handleGetPortfolioInfo)
   yield takeEvery(updatePortfolioRequest.type, handleUpdatePortfolio)
 }
+

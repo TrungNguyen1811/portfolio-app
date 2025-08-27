@@ -1,7 +1,7 @@
 import { Header } from '@/components/common/header'
 import { SideBar } from '@/components/common/sidebar'
 import { Outlet } from 'react-router-dom'
-import { StyledLayout } from '../../styled'
+import { StyledLayout } from './styled'
 
 export default function PortfolioLayout() {
   return (
@@ -14,3 +14,4 @@ export default function PortfolioLayout() {
     </StyledLayout>
   )
 }
+
