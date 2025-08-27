@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter } from 'react-router-dom'
 import AppRoutes from '@/routes/routes'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, App as AppAnt } from 'antd'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './constants/theme'
 
@@ -28,13 +28,14 @@ function App() {
       }}
     >
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
+        <AppAnt>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </AppAnt>
       </ThemeProvider>
     </ConfigProvider>
   )
 }
 
 export default App
-

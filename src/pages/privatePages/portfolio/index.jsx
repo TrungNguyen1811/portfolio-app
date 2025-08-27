@@ -2,124 +2,95 @@ import React from 'react'
 import { Input, Button, Flex, Row, Col } from 'antd'
 import { Form } from 'antd'
 import { Typography } from 'antd'
-import { FacebookFilled, PlusOutlined } from '@ant-design/icons'
-import { List } from 'antd'
-import { Link } from 'react-router-dom'
-import { Empty } from 'antd'
-import { UploadStyle } from './styled'
 import usePortfolioManage from '@/hooks/usePortfolioManage'
+import FormItemControl from '@/components/common/formItemControl'
+import { useEffect } from 'react'
+import UploadImage from '@/components/common/uploadImage'
+
 const Portfolio = () => {
-  const {
-    fileList,
-    items,
-    formik,
-    handlePreview,
-    handleChange,
-    handleAddItem,
-  } = usePortfolioManage()
+  const { formik, handleAvatarChange, getDataPortfolio } = usePortfolioManage()
+  useEffect(() => {
+    getDataPortfolio()
+  }, [])
 
   return (
     <>
-      <Form onSubmit={formik.handleSubmit} labelCol={{ span: 4 }}>
+      <Form onFinish={formik.handleSubmit} labelCol={{ span: 4 }}>
         <Row gutter={16} wrap={true}>
           <Col xs={24} md={6}>
-            <Form.Item rules={[{ required: true, message: '' }]}>
-              <Typography.Text>Avatar</Typography.Text>
-              <UploadStyle
-                listType='picture-circle'
-                multiple={false}
-                fileList={fileList}
-                maxCount={1}
-                onPreview={handlePreview}
-                onChange={handleChange}
-              >
-                {fileList.length < 1 && <PlusOutlined />}
-              </UploadStyle>
-            </Form.Item>
+            <FormItemControl name='avatar' formik={formik}>
+              <Flex align='center' vertical>
+                <Typography.Text>Avatar</Typography.Text>
+                <UploadImage
+                  data={formik.values.avatar}
+                  onChange={handleAvatarChange}
+                  maxCount={1}
+                  shape='circle'
+                />
+              </Flex>
+            </FormItemControl>
           </Col>
 
           <Col xs={24} md={18}>
-            <Form.Item label='Overview'>
-              <Input.TextArea
-                size='large'
-                rows={6}
-                name='overview'
-                placeholder='Overview'
-                value={formik.values.overview}
-                onChange={formik.handleChange}
-              />
-            </Form.Item>
-
-            <Form.Item label='CV URL'>
+            <FormItemControl label='Email' name='email' formik={formik}>
               <Input
                 size='large'
-                name='cvUrl'
+                placeholder='Email'
+                name='email'
+                value={formik.values.email}
+                onChange={formik.handleChange}
+              />
+            </FormItemControl>
+            <FormItemControl label='CV URL' name='cvUrl' formik={formik}>
+              <Input
+                size='large'
                 placeholder='CV URL'
+                name='cvUrl'
                 value={formik.values.cvUrl}
                 onChange={formik.handleChange}
               />
-            </Form.Item>
+            </FormItemControl>
+            <FormItemControl label='Overview' name='overview' formik={formik}>
+              <Input.TextArea
+                size='large'
+                rows={6}
+                placeholder='Overview'
+                name='overview'
+                value={formik.values.overview}
+                onChange={formik.handleChange}
+              />
+            </FormItemControl>
+            <div>
+              <Typography.Title level={3}>Social</Typography.Title>
+            </div>
+            <FormItemControl name='facebook' label='Facebook' formik={formik}>
+              <Input
+                name='facebook'
+                value={formik.values.facebook}
+                onChange={formik.handleChange}
+                placeholder='Enter your facebook url'
+              />
+            </FormItemControl>
+            <FormItemControl name='linkedin' label='Linkedin' formik={formik}>
+              <Input
+                name='linkedin'
+                value={formik.values.linkedin}
+                onChange={formik.handleChange}
+                placeholder='Enter your linkedin url'
+              />
+            </FormItemControl>
+            <FormItemControl name='instagram' label='Instagram' formik={formik}>
+              <Input
+                name='instagram'
+                value={formik.values.instagram}
+                onChange={formik.handleChange}
+                placeholder='Enter your instagram url'
+              />
+            </FormItemControl>
           </Col>
         </Row>
-        <Row gutter={16} wrap={true}>
-          <Col md={12}>
-            <Typography.Title level={4}>Socials</Typography.Title>
-
-            <Form.Item label='Title'>
-              <Input
-                name='title'
-                value={formik.values.title}
-                onChange={formik.handleChange}
-                placeholder='Enter title'
-              />
-            </Form.Item>
-
-            <Form.Item label='URL'>
-              <Input
-                name='url'
-                value={formik.values.url}
-                onChange={formik.handleChange}
-                placeholder='Enter URL'
-              />
-            </Form.Item>
-            <Form.Item label='Icon'>
-              <Input
-                name='icon'
-                value={formik.values.icon}
-                onChange={formik.handleChange}
-                placeholder='Enter icon Tag'
-              />
-            </Form.Item>
-            <Form.Item>
-              <Flex justify='end'>
-                <Button type='default' onClick={handleAddItem}>
-                  Add Item
-                </Button>
-              </Flex>
-            </Form.Item>
-          </Col>
-          <Col md={12}>
-            <List
-              itemLayout='horizontal'
-              dataSource={items}
-              locale={{
-                emptyText: <Empty description='No socials' />,
-              }}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<FacebookFilled />}
-                    title={item.title}
-                    description={
-                      <Link target='_blank' href={item.url}>
-                        {item.url}
-                      </Link>
-                    }
-                  />
-                </List.Item>
-              )}
-            />
-          </Col>
+        <Row gutter={16} align={'end'}>
+          <Col md={12}></Col>
         </Row>
         <Flex justify='end'>
           <Button type='primary' htmlType='submit' size='large'>
