@@ -1,5 +1,5 @@
 import AuthLayout from '@/layouts/public/authLayout/AuthLayout'
-import Home from '@/pages/globalPages/home'
+import Home from '@/pages/globalPages/homePage'
 import React, { Suspense } from 'react'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'

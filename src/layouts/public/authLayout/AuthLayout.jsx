@@ -1,4 +1,4 @@
-import { StyleLayout } from '@/layouts/public/authLayout/styled'
+import { StyleLayout } from '@/layouts/public/authLayout/StyleLayout.style'
 import { Outlet } from 'react-router-dom'
 
 const AuthLayout = () => {

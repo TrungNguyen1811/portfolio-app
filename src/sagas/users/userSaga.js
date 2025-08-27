@@ -40,8 +40,8 @@ function* handleSignIn(action) {
     const data = yield call(AUTH_API.postLogin, values)
 
     localStorage.setItem('user', JSON.stringify(data.user))
-    localStorage.setItem('accessToken', JSON.stringify(data.accessToken))
-    localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken))
+    localStorage.setItem('accessToken', data.accessToken)
+    localStorage.setItem('refreshToken', data.refreshToken)
     yield put(signInSuccess(data.user))
     if (callback) {
       yield call(callback)
