@@ -14,6 +14,8 @@ export default defineConfig({
     alias: {
       "@": resolve(__dirname, "src"),
       "@components": resolve(__dirname, "src/components"),
+      // Force dependencies that import `deepmerge` to use a shim that provides `.all`
+      deepmerge: resolve(__dirname, "src/utils/deepmerge-shim.js"),
     },
   },
   server: {
