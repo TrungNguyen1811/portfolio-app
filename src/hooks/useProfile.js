@@ -11,6 +11,7 @@ import { App } from 'antd'
 
 const useProfile = () => {
   const { user, loading, actionLoading } = useSelector((state) => state.user)
+  console.log(user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -20,11 +21,11 @@ const useProfile = () => {
   const initialValues = useMemo(
     () => ({
       fullname: user.fullname || '',
-      nickName: user?.nickName || '',
-      birthday: user?.birthday || '',
-      genre: user?.genre || 'other',
-      email: user?.email || '',
-      phone: user?.phone || '',
+      nickName: user.nickName || '',
+      birthday: user.birthday || '',
+      genre: user.genre || 'other',
+      email: user.email || '',
+      phone: user.phone || '',
     }),
     [user]
   )
@@ -41,7 +42,6 @@ const useProfile = () => {
   })
 
   const onSubmit = (data) => {
-    console.log('data', data)
     dispatch(
       updateUserRequest({
         values: data,

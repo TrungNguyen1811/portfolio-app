@@ -45,7 +45,8 @@ const userSlice = createSlice({
     },
     updateUserSuccess: (state, action) => {
       state.loading = false
-      state.user = action.payload
+      state.user = { ...state.user, ...action.payload }
+      localStorage.setItem('user', JSON.stringify(state.user))
       state.error = null
     },
     updateUserFailure: (state, action) => {
@@ -59,6 +60,7 @@ const userSlice = createSlice({
     updatePublicPortfolioSuccess: (state, action) => {
       state.actionLoading = false
       state.user.isPublic = action.payload
+      localStorage.setItem('user', JSON.stringify(state.user))
     },
     updatePublicPortfolioFailure: (state, action) => {
       state.actionLoading = false
