@@ -32,8 +32,8 @@ function* handleUpdatePortfolio(action) {
     yield put(updatePortfolioSuccess(portfolio))
     message.success(messageResponse)
   } catch (error) {
-    yield put(updatePortfolioFailure(error.message))
-    message.success(error?.message)
+    yield put(updatePortfolioFailure(error?.message))
+    message.error(error?.message)
   }
 }
 
@@ -41,4 +41,3 @@ export default function* portfolioManageSaga() {
   yield takeEvery(getPortfolioRequest.type, handleGetPortfolioInfo)
   yield takeEvery(updatePortfolioRequest.type, handleUpdatePortfolio)
 }
-

@@ -20,8 +20,8 @@ const Portfolio = () => {
           <Col xs={24} md={6}>
             <FormItemControl name='avatar' formik={formik}>
               <Flex align='center' vertical>
-                <Typography.Text>Avatar</Typography.Text>
                 <UploadImage
+                  title='Avatar'
                   data={formik.values.avatar}
                   onChange={handleAvatarChange}
                   maxCount={1}
