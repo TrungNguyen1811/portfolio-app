@@ -67,11 +67,23 @@ const DivBanner = styled.div`
     color: #ff984f;
   }
   .img-banner {
-    width: 75rem;
-    max-width: 95vw;
+    width: 100%;
     height: auto;
     filter: drop-shadow(0 12px 25px rgba(40, 90, 160, 0.18));
   }
+
+  @media screen and (max-width: 1200px) {
+    padding: 0 6rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0 4rem;
+  }
+  
+  @media screen and (max-width: 480px) {
+    padding: 0 2rem;
+  }
+
 `
 
 const StyleButton = styled(Button)`

@@ -1,8 +1,4 @@
-import { Layout } from 'antd'
-import { Flex } from 'antd'
-import { Avatar } from 'antd'
-import { Space } from 'antd'
-import { Button, Typography } from 'antd'
+import { Layout, Flex, Avatar, Typography } from 'antd'
 import styled from 'styled-components'
 
 const HeaderStyle = styled(Layout.Header)`

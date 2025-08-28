@@ -29,10 +29,9 @@ const useLogIn = () => {
       signInRequest({
         values: data,
         callback: ({ success, messageResponse }) => {
-          console.log(messageResponse)
           if (success) {
             message.success(messageResponse)
-            navigate('/')
+            navigate('/management')
           } else {
             message.error(messageResponse)
           }

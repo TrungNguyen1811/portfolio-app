@@ -1,50 +1,52 @@
 import PrivateLayout from '@/layouts/private/PrivateLayout'
-import PrivatePages from '@/pages/privatePages'
-import Portfolio from '@/pages/privatePages/portfolio'
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom'
 
-// const Dashboard = React.lazy(() => import('@/pages/Dashboard'));
-// const Profile = React.lazy(() => import('@/pages/Profile'));
+const PortfolioManagement = React.lazy(() => import('@/pages/privatePages/portfolio/index'));
+const EducationManagement = React.lazy(() => import('@/pages/privatePages/education/index'));
+const ExperienceManagement = React.lazy(() => import('@/pages/privatePages/experience/index'));
+const ProjectManagement = React.lazy(() => import('@/pages/privatePages/project/index'));
+const ProfilePage = React.lazy(() => import('@/pages/privatePages/profile/index'));
 
-// const ProtectedRoute = ({ children }) => {
-//   const { user } = useSelector((state) => state.user)
-//   const navigate = useNavigate()
 
-//   useEffect(() => {
-//     if (user === null) {
-//       navigate('/sign-in', { replace: true })
-//     }
-//   }, [user, navigate])
-//   if (user) return children
-// }
+const ProtectedRoute = ({ children }) => {
+  const { user } = useSelector((state) => state.user)
+    if (user === null) {
+      return <Navigate to='/login' replace />
+    }
+  return children ?? null
+}
 
 const privateRoutes = {
   path: '/management',
   element: (
     <Suspense fallback={<div>Loading...</div>}>
-      <PrivateLayout />
+      <ProtectedRoute>
+        <PrivateLayout />
+      </ProtectedRoute>
     </Suspense>
   ),
   children: [
     {
       index: true,
-      element: <PrivatePages.PortfolioManagement />,
+      element: <PortfolioManagement />,
     },
     {
       path: '/management/education',
-      element: <PrivatePages.EducationManagement />,
+      element: <EducationManagement />,
     },
     {
       path: '/management/experience',
-      element: <PrivatePages.ExperienceManagement />,
+      element: <ExperienceManagement />,
     },
     {
       path: '/management/projects',
-      element: <PrivatePages.ProjectManagement />,
+      element: <ProjectManagement />,
     },
     {
       path: '/management/profile',
-      element: <PrivatePages.ProfilePage />,
+      element: <ProfilePage />,
     },
   ],
 }
