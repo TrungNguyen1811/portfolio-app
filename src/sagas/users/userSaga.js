@@ -17,37 +17,34 @@ import {
 
 import USERS_API from '@/services/users'
 import AUTH_API from '@/services/auth'
+import getErrorMessage from '@/utils/getMessage'
 
 function* handleRegister(action) {
+  const { values, callback } = action.payload
   try {
-    const { values, callback } = action.payload
-    const newUser = yield call(AUTH_API.postRegister, values)
-
-    yield put(registerSuccess(newUser))
-
-    if (callback) {
-      yield call(callback)
-    }
+    const data = yield call(AUTH_API.postRegister, values)
+    yield put(registerSuccess(data.user))
+    callback?.({ success: true, messageResponse: data.message })
   } catch (error) {
-    yield put(registerFailure(error.message))
+    const errorMessage = getErrorMessage(error, 'Register failed')
+    yield put(registerFailure(errorMessage))
+    callback?.({ success: false, messageResponse: errorMessage })
   }
 }
 
 function* handleSignIn(action) {
+  const { values, callback } = action.payload
   try {
-    const { values, callback } = action.payload
-
     const data = yield call(AUTH_API.postLogin, values)
-
     localStorage.setItem('user', JSON.stringify(data.user))
     localStorage.setItem('accessToken', data.accessToken)
     localStorage.setItem('refreshToken', data.refreshToken)
     yield put(signInSuccess(data.user))
-    if (callback) {
-      yield call(callback)
-    }
+    callback?.({ success: true, messageResponse: data.message })
   } catch (error) {
-    yield put(signInFailure(error.message))
+    const errorMessage = getErrorMessage(error, 'Login failed')
+    yield put(signInFailure(errorMessage))
+    callback?.({ success: false, messageResponse: errorMessage })
   }
 }
 
@@ -58,8 +55,9 @@ function* handleUpdateUser(action) {
     yield put(updateUserSuccess(data.user))
     callback?.({ success: true, messageResponse: data.message })
   } catch (error) {
-    yield put(updateUserFailure(error.message))
-    callback?.({ success: false, messageResponse: data.message })
+    const errorMessage = getErrorMessage(error, 'Update user failed')
+    yield put(updateUserFailure(errorMessage))
+    callback?.({ success: false, messageResponse: errorMessage })
   }
 }
 
@@ -70,8 +68,9 @@ function* handlePublicPortfolio(action) {
     yield put(updatePublicPortfolioSuccess(value))
     callback?.({ success: true, messageResponse: res.message })
   } catch (error) {
-    yield put(updatePublicPortfolioFailure(error))
-    callback?.({ success: false, messageResponse: error })
+    const errorMessage = getErrorMessage(error, 'Set update status failed')
+    yield put(updatePublicPortfolioFailure(errorMessage))
+    callback?.({ success: false, messageResponse: errorMessage })
   }
 }
 

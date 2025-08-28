@@ -3,15 +3,17 @@ import { Button, Grid, Typography, Form, Input } from 'antd'
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { getWidthCard } from '@/utils/getWidthCard'
 import useRegister from '@/hooks/useRegister'
+import FormItemControl from '@/components/common/formItemControl'
+import {useNavigate} from 'react-router-dom'
 
 const { useBreakpoint } = Grid
 const { Text, Title, Link } = Typography
-const { Item } = Form
 
 const RegisterPage = () => {
+  const navigate = useNavigate()
   const screens = useBreakpoint()
   const widthCard = getWidthCard(screens)
-  const fieldInput = [
+  const fields = [
     {
       name: 'fullname',
       icon: <UserOutlined />,
@@ -36,7 +38,7 @@ const RegisterPage = () => {
       type: 'password',
     },
   ]
-  const { formik, getFieldProps, getInputStatus, loading } = useRegister()
+  const { formik, loading } = useRegister()
 
   return (
     <StyleCard $width={widthCard}>
@@ -44,13 +46,14 @@ const RegisterPage = () => {
       <Text>Join us! Create an account to get started.</Text>
 
       <StyleForm onFinish={formik.handleSubmit} labelCol={{ span: 6 }}>
-        {fieldInput.map((field) => {
+        {fields.map((field) => {
           const InputComponent =
             field.type === 'password' ? Input.Password : Input
           return (
-            <Item
+            <FormItemControl
               key={field.name}
-              {...getFieldProps(field.name)}
+              name={field.name}
+              formik={formik}
             >
               <InputComponent
                 name={field.name}
@@ -61,9 +64,8 @@ const RegisterPage = () => {
                 placeholder={field.placeholder}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                statue={getInputStatus(field.name)}
               />
-            </Item>
+            </FormItemControl>
           )
         })}
 
@@ -80,7 +82,7 @@ const RegisterPage = () => {
       </StyleForm>
       <div>
         <Text>Already have an account?</Text>
-        <Link href='/login'> Sign in</Link>
+        <Link onClick={() => navigate("/login")}> Sign in</Link>
       </div>
     </StyleCard>
   )
