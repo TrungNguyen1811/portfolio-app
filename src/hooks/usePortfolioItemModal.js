@@ -4,7 +4,7 @@ import {
 } from '@/sagas/portfolioItemManage/portfolioItemManageSlice'
 import { fileToBase64 } from '@/utils/getImage'
 import dayjs from 'dayjs'
-import { useFormik } from 'formik/dist'
+import { useFormik } from 'formik'
 import { useState } from 'react'
 import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
