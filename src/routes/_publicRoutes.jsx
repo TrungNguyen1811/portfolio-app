@@ -1,9 +1,7 @@
 import AuthLayout from '@/layouts/public/authLayout/AuthLayout'
-import Home from '@/pages/globalPages/homePage'
 import React, { Suspense } from 'react'
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 const RegisterPage = React.lazy(() =>
   import('@/pages/publicPages/register/RegisterPage')
@@ -14,14 +12,10 @@ const LoginPage = React.lazy(() =>
 
 const AuthRoute = ({ children }) => {
   const { user } = useSelector((state) => state.user)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (user) {
-      navigate('/management', { replace: true })
-    }
-  }, [user, navigate])
-  if (!user) return children
+  if (user) {
+    return <Navigate to="/management" replace />
+  }
+  return children
 }
 
 const publicRoutes = {

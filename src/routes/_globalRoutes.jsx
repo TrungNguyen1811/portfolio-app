@@ -1,17 +1,14 @@
-import Home from '@/pages/globalPages/homePage'
+
 import About from '@/components/about'
 import { Education } from '@/components/education'
 import { Experience } from '@/components/experience'
 import { Project } from '@/components/project'
-import React from 'react'
-import { Suspense } from 'react'
-import Layout from '@/layouts/index'
-import HomePage from '@/pages/globalPages/homePage'
+import Layout from '@/layouts/public/homeLayout'
+import PortfolioLayout from '@/layouts/public/portfolioLayout/PortfolioLayout'
+import React, { Suspense } from 'react'
 
-const PortfolioLayout = React.lazy(() =>
-  import('@/layouts/public/portfolioLayout/PortfolioLayout')
-)
-const NotFound = React.lazy(() => import('@/pages/globalPages/notFound'))
+const HomePage = React.lazy(() => import('@/pages/globalPages/homePage/index'))
+const NotFound = React.lazy(() => import('@/pages/globalPages/notFound/index'))
 
 const portfolioRoute = {
   path: '/public/:slug',

@@ -4,16 +4,13 @@ import {
 } from '@/sagas/users/userSlice'
 import { useFormik } from 'formik'
 import { useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Yup from 'yup'
 import { App } from 'antd'
 
 const useProfile = () => {
   const { user, loading, actionLoading } = useSelector((state) => state.user)
-  console.log(user)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const { message } = App.useApp()
   const isPublic = useMemo(() => Boolean(user.isPublic), [user.isPublic])
@@ -79,7 +76,8 @@ const useProfile = () => {
   }
 
   const handleNavigatePortfolio = () => {
-    navigate(`/public/${user.portfolioSlug}`)
+    const fulUrl = window.location.origin + '/public/' + user.portfolioSlug
+    window.open(fulUrl, '_blank')
   }
 
   return {

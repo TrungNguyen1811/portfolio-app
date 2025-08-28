@@ -1,10 +1,27 @@
-import { UserOutlined } from '@ant-design/icons'
-import { Button, Card, Avatar, Flex, Col, Row, Form, Input, Select, Popconfirm } from 'antd'
+import {
+  Button,
+  Card,
+  Flex,
+  Col,
+  Row,
+  Form,
+  Input,
+  Select,
+  Popconfirm
+} from 'antd'
 import useProfile from '@/hooks/useProfile'
 import { StyleCard, StyleFormItemControl } from './styled'
+import { ProfileAvatarStyle } from '@/components/privateHeader/styled'
 
 const ProfilePage = () => {
-  const { user, formik, loading, actionLoading, handPublicPortfolio, handleNavigatePortfolio } = useProfile()
+  const {
+    user,
+    formik,
+    loading,
+    actionLoading,
+    handPublicPortfolio,
+    handleNavigatePortfolio,
+  } = useProfile()
 
   const confirmTitle = user.isPublic
     ? 'Confirm set private portfolio'
@@ -15,39 +32,44 @@ const ProfilePage = () => {
     : 'Are you sure you want to set your portfolio to public?'
 
   const fields = [
-    { label: 'Full Name', name: 'fullname', type: 'text', span: 12 },
-    { label: 'Nick Name', name: 'nickName', type: 'text', span: 12 },
-    { label: 'Birthday', name: 'birthday', type: 'date', span: 12 },
+    { label: 'Full Name', name: 'fullname', type: 'text' },
+    { label: 'Nick Name', name: 'nickName', type: 'text' },
+    { label: 'Birthday', name: 'birthday', type: 'date' },
     {
       label: 'Genre',
       name: 'genre',
       type: 'select',
-      span: 12,
       options: [
         { label: 'Male', value: 'male' },
         { label: 'Female', value: 'female' },
         { label: 'Other', value: 'other' },
       ],
     },
-    { label: 'Email', name: 'email', type: 'email', span: 12, readOnly: true },
-    { label: 'Phone', name: 'phone', type: 'tel', span: 12 },
+    { label: 'Email', name: 'email', type: 'email', readOnly: true },
+    { label: 'Phone', name: 'phone', type: 'tel' },
   ]
 
   return (
     <Row gutter={24}>
-      <Col span={16}>
+      <Col xs={{span: 24, order: 2}} lg={{span:16, order: 1}}>
         <Card title='General information'>
           <Form onFinish={formik.handleSubmit} layout='vertical'>
             <Row gutter={16}>
               {fields.map((field) => (
-                <Col span={field.span} key={field.name}>
-                  <StyleFormItemControl label={field.label} name={field.name} formik={formik}>
+                <Col xs={{span: 24}} lg={{span: 12}} key={field.name}>
+                  <StyleFormItemControl
+                    label={field.label}
+                    name={field.name}
+                    formik={formik}
+                  >
                     {field.type === 'select' ? (
                       <Select
                         size='large'
                         placeholder={field.label}
                         value={formik.values[field.name]}
-                        onChange={(value) => formik.setFieldValue(field.name, value)}
+                        onChange={(value) =>
+                          formik.setFieldValue(field.name, value)
+                        }
                         options={field.options}
                       />
                     ) : (
@@ -76,9 +98,12 @@ const ProfilePage = () => {
         </Card>
       </Col>
 
-      <Col span={8}>
+      <Col xs={{span:24, order: 1}} lg={{span: 8, order: 2}}>
         <StyleCard>
-          <Avatar size={86} icon={<UserOutlined />} />
+          <ProfileAvatarStyle
+            size={86}
+            icon={<span>{user.fullname.at(0)}</span>}
+          />
           <p className='card__name'>{user.fullname}</p>
           <p className='card__email'>{user.email}</p>
           <Flex gap={6}>

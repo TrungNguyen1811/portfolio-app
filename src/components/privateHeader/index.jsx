@@ -6,8 +6,10 @@ import {
   FlexFullStyle,
   ProfileAvatarStyle,
 } from './styled'
+import { useSelector } from 'react-redux'
 
 function PrivateHeader({ collapsed, setCollapsed }) {
+  const {user} = useSelector((state) => state.user)
   return (
     <HeaderStyle>
       <FlexFullStyle align='center' gap='middle' justify='space-between'>
@@ -17,15 +19,15 @@ function PrivateHeader({ collapsed, setCollapsed }) {
           onClick={() => setCollapsed(!collapsed)}
         />
         <Flex align='center' gap={8}>
-          <Flex vertical justify='center' align='start'>
+          <Flex vertical justify='center' align='end'>
             <UserTextStyle strong className='profile__name'>
-              Huu Dong
+              {user.fullname}
             </UserTextStyle>
             <UserTextStyle className='profile__email'>
-              empa@gmail.com
+              {user.email}
             </UserTextStyle>
           </Flex>
-          <ProfileAvatarStyle size={48} icon={<span>Đ</span>} />
+          <ProfileAvatarStyle size={48} icon={<span>{user.fullname.at(0)}</span>} />
         </Flex>
       </FlexFullStyle>
     </HeaderStyle>

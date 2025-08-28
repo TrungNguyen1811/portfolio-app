@@ -1,4 +1,4 @@
 import NotFound from './notFound'
-import Home from './homePage'
+import HomePage from './homePage'
 
-export default { NotFound, Home }
+export default { NotFound, HomePage }
