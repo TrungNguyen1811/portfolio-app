@@ -1,21 +1,30 @@
 import { BankOutlined, LinkedinOutlined } from '@ant-design/icons'
 import { EducationStyled } from './styled'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { getPortfolioItemsRequest } from '@/sagas/portfolios/portfolioSlice'
+
+import { usePortfolioItems } from '@/hooks/usePortfolioItem'
+import { Spin } from 'antd'
 
 export function Education() {
-  const dispatch = useDispatch()
-  const { portfolioItems, loading, error } = useSelector(
-    (state) => state.portfolios
-  )
+  const { portfolioItems, loading, error } = usePortfolioItems('education')
 
-  useEffect(() => {
-    dispatch(getPortfolioItemsRequest('education'))
-  }, [dispatch])
-
-  console.log('Portfolio Items:', portfolioItems)
+  if (loading) {
+    return (
+      <EducationStyled>
+        <div className='message-wrapper'>
+          <Spin size='large' tip='Loading education...' />
+        </div>
+      </EducationStyled>
+    )
+  }
+  if (error) {
+    return (
+      <EducationStyled>
+        <div className='message-wrapper'>
+          <p>Error loading education. Please try again later.</p>
+        </div>
+      </EducationStyled>
+    )
+  }
 
   return (
     <EducationStyled>
@@ -33,15 +42,6 @@ export function Education() {
             </div>
           </div>
         ))}
-        {/* <BankOutlined />
-          <div>
-            <h4 className='education__degree-title'>
-              Hue University of Science
-            </h4>
-            <p className='education__degree-institution'>
-              Software Technology - 2018
-            </p>
-          </div> */}
       </section>
       <section>
         <h3>Certifications</h3>

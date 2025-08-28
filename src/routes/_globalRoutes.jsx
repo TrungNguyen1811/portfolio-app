@@ -26,19 +26,15 @@ const portfolioRoute = {
       element: <About />,
     },
     {
-      path: '/public/:slug/test',
-      element: <div>Test Route Works!</div>,
-    },
-    {
-      path: '/public/:slug/experience',
+      path: 'experience',
       element: <Experience />,
     },
     {
-      path: '/public/:slug/education',
+      path: 'education',
       element: <Education />,
     },
     {
-      path: '/public/:slug/projects',
+      path: 'projects',
       element: <Project />,
     },
   ],

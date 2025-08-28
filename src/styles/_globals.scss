@@ -104,4 +104,11 @@ small {
   margin: 0 auto;
   padding: 0 2rem;
 }
+.message-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  width: 100%;
+}
 
