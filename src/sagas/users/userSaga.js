@@ -52,23 +52,26 @@ function* handleSignIn(action) {
 }
 
 function* handleUpdateUser(action) {
+  const { values, callback } = action.payload
   try {
-    const { values, callback } = action.payload
-
-    const user = yield call(USER_API.put, values)
-    yield put(updateUserSuccess(user))
+    const data = yield call(USERS_API.put, values)
+    yield put(updateUserSuccess(data.user))
+    callback?.({ success: true, messageResponse: data.message })
   } catch (error) {
     yield put(updateUserFailure(error.message))
+    callback?.({ success: false, messageResponse: data.message })
   }
 }
 
 function* handlePublicPortfolio(action) {
+  const { value, callback } = action.payload
   try {
-    const { values, callback } = action.payload
-    const data = yield call(USERS_API.putPublicPortfolio, values)
-    yield put(updatePublicPortfolioSuccess(data))
+    const res = yield call(USERS_API.putPublicPortfolio, value)
+    yield put(updatePublicPortfolioSuccess(value))
+    callback?.({ success: true, messageResponse: res.message })
   } catch (error) {
-    yield put(updatePublicPortfolioFailure(data))
+    yield put(updatePublicPortfolioFailure(error))
+    callback?.({ success: false, messageResponse: error })
   }
 }
 
@@ -78,4 +81,3 @@ export default function* userSaga() {
   yield takeEvery(updateUserRequest.type, handleUpdateUser)
   yield takeEvery(updatePublicPortfolioRequest.type, handlePublicPortfolio)
 }
-

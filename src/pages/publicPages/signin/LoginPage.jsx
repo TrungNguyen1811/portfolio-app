@@ -12,7 +12,7 @@ const { Item } = Form
 const LoginPage = () => {
   const screens = useBreakpoint()
   const widthCard = getWidthCard(screens)
-  const fieldInput = [
+  const fields = [
     {
       name: 'email',
       icon: <MailOutlined />,
@@ -26,15 +26,15 @@ const LoginPage = () => {
       type: 'password',
     },
   ]
-  const { formik, getInputStatus, getFieldProps, loading } = useLogIn()
+  const { formik, loading, getInputStatus, getFieldProps } = useLogIn()
 
   return (
     <StyleCard $width={widthCard}>
       <Title>Sign In</Title>
-      <Text>Welcome back to AntBlocks UI! Please enter your details below to sign in.</Text>
+      <Text>Welcome back to Portfolio Web App! Please enter your details below to sign in.</Text>
 
       <StyleForm onFinish={formik.handleSubmit} labelCol={{ span: 6 }}>
-        {fieldInput.map((field) => {
+        {fields.map((field) => {
           const InputComponent =
             field.type === 'password' ? Input.Password : Input
           return (

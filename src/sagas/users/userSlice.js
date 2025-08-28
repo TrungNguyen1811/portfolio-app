@@ -8,6 +8,7 @@ const userSlice = createSlice({
     user: userInit ?? null,
     isAuthenticated: !!userInit,
     loading: false,
+    actionLoading: false,
     error: null,
   },
   reducers: {
@@ -53,16 +54,14 @@ const userSlice = createSlice({
     },
 
     updatePublicPortfolioRequest: (state) => {
-      state.loading = true
-      state.error = null
+      state.actionLoading = true
     },
     updatePublicPortfolioSuccess: (state, action) => {
-      state.loading = false
-      tate.user = { ...state.user, isPublic: action.payload }
-      state.error = null
+      state.actionLoading = false
+      state.user.isPublic = action.payload
     },
     updatePublicPortfolioFailure: (state, action) => {
-      state.loading = false
+      state.actionLoading = false
       state.error = action.payload
     },
 
