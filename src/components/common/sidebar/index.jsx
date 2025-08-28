@@ -1,25 +1,46 @@
 import {
   EnvironmentOutlined,
   FacebookOutlined,
+  InstagramOutlined,
   LinkedinOutlined,
-  TwitterOutlined,
 } from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
 import avatar from '@/assets/images/avatar.jpg'
 import AsideStyles from './styled'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { fetchPortfoliosRequest } from '@/sagas/portfolios/portfolioSlice'
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 export function SideBar() {
-  // const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const { portfolio } = useSelector((state) => state.portfolios) || {}
+  const { slug } = useParams()
+
+  const SOCIAL_ICONS = {
+    facebook: <FacebookOutlined />,
+    linkedin: <LinkedinOutlined />,
+    instagram: <InstagramOutlined />,
+  }
+
+  useEffect(() => {
+    if (slug) {
+      dispatch(fetchPortfoliosRequest(slug))
+    }
+  }, [slug, dispatch])
 
   return (
     <AsideStyles>
       <section>
         <div className='profile'>
-          <img className='profile__avatar' src={avatar} alt='avatar' />
-          <h1>{user.fullname}</h1>
+          <img
+            className='profile__avatar'
+            src={portfolio.info?.avatar || avatar}
+            alt='avatar'
+          />
+          <h1>{portfolio.user?.fullname || 'Anonymous'}</h1>
           <p className='profile__position'>Frontend Developer</p>
           <div className='profile__address'>
             <EnvironmentOutlined />
@@ -30,18 +51,22 @@ export function SideBar() {
       <section className='contact'>
         <h2>Follow Me</h2>
         <Link to='' className='contact__mail'>
-          {user.email}
+          {portfolio.user?.email}
         </Link>
         <div className='contact__socials'>
-          <Link to=''>
-            <FacebookOutlined />
-          </Link>
-          <Link to=''>
-            <TwitterOutlined />
-          </Link>
-          <Link to=''>
-            <LinkedinOutlined />
-          </Link>
+          {portfolio?.info?.socials?.map((social) => {
+            const icon = SOCIAL_ICONS[social.title.toLowerCase()] || null
+            return (
+              <Link
+                key={social.title}
+                to={social.url}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                {icon || social.title}
+              </Link>
+            )
+          })}
         </div>
       </section>
     </AsideStyles>

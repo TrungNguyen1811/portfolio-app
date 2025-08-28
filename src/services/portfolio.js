@@ -18,33 +18,20 @@ const PORTFOLIO_API = {
       throw error
     }
   },
-  post: async (portfolioData) => {
+  put: async (payload) => {
     try {
-      const response = await instance.post('/portfolios', portfolioData)
-      return response.data
+      const res = await instance.put(`/portfolios`, payload)
+      return res.data
     } catch (error) {
-      console.error('Error posting portfolio data:', error)
-      throw error
-    }
-  },
-  put: async (portfolioId, portfolioData) => {
-    try {
-      const response = await instance.put(
-        `/portfolios/${portfolioId}`,
-        portfolioData
-      )
-      return response.data
-    } catch (error) {
-      console.error('Error updating portfolio data:', error)
-      throw error
+      throw error.message
     }
   },
 }
 
 const PORTFOLIO_API_ITEM = {
-  getPublic: async (type) => {
+  getPublic: async (slug, type) => {
     try {
-      const response = await instance.get(`/portfolio-items/${type}`)
+      const response = await instance.get(`/public/portfolio/${slug}/${type}`)
       return response.data
     } catch (error) {
       console.error('Error fetching portfolio item data:', error)

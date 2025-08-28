@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import About from './../about/index'
 
 export const ProjectStyled = styled.div`
   padding: 9rem 0;

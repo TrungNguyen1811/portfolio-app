@@ -13,10 +13,8 @@ import { PORTFOLIO_API, PORTFOLIO_API_ITEM } from '@/services/portfolio'
 function* handleFetchPortfolios(action) {
   try {
     const slug = action.payload
-
-    const portfolios = yield call(PORTFOLIO_API.getPublic, slug)
-    console.log('Fetched portfolios:', portfolios)
-    yield put(fetchPortfoliosSuccess(portfolios))
+    const response = yield call(PORTFOLIO_API.getPublic, slug)
+    yield put(fetchPortfoliosSuccess(response.portfolio))
   } catch (error) {
     yield put(fetchPortfoliosFailure(error.message))
   }
@@ -24,8 +22,9 @@ function* handleFetchPortfolios(action) {
 
 function* handleGetPortfolioItems(action) {
   try {
-    const { item } = yield call(PORTFOLIO_API_ITEM.getPublic, action.payload)
-    yield put(getPortfolioItemsSuccess(item))
+    const { slug, type } = action.payload
+    const data = yield call(PORTFOLIO_API_ITEM.getPublic, slug, type)
+    yield put(getPortfolioItemsSuccess(data.items))
   } catch (error) {
     yield put(getPortfolioItemsFailure(error.message))
   }
