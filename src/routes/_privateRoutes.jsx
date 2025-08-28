@@ -36,7 +36,7 @@ const privateRoutes = {
     },
     {
       path: '/management/experience',
-      element: <Portfolio />,
+      element: <PrivatePages.Experience />,
     },
     {
       path: '/management/profile',
@@ -46,4 +46,3 @@ const privateRoutes = {
 }
 
 export default privateRoutes
-
