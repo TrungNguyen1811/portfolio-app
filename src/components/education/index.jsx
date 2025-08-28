@@ -3,9 +3,11 @@ import { EducationStyled } from './styled'
 
 import { usePortfolioItems } from '@/hooks/usePortfolioItem'
 import { Spin } from 'antd'
+import { useFormatDate } from '@/hooks/useFormatDate'
 
 export function Education() {
   const { portfolioItems, loading, error } = usePortfolioItems('education')
+  const { formatDate } = useFormatDate()
 
   if (loading) {
     return (
@@ -31,13 +33,13 @@ export function Education() {
       <h2>Education</h2>
       <section className='education__degree'>
         <h3>Degree</h3>
-        {portfolioItems.map((item) => (
-          <div className='education__degree-header' key={item.id}>
+        {portfolioItems.map((item, index) => (
+          <div className='education__degree-header' key={index}>
             <BankOutlined />
             <div>
               <h4 className='education__degree-title'>{item.title}</h4>
               <p className='education__degree-institution'>
-                {item.subtitle} - {item.endDate}
+                {item.subtitle} - {formatDate(item.endDate)}
               </p>
             </div>
           </div>

@@ -32,6 +32,7 @@ export const ProjectStyled = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
       }
 
       &-description {
@@ -40,6 +41,7 @@ export const ProjectStyled = styled.div`
 
       &-tags {
         display: flex;
+        flex-wrap: wrap;
         gap: 8px;
       }
 
@@ -81,6 +83,15 @@ export const ProjectStyled = styled.div`
           opacity: 1;
         }
       }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 2rem 0;
+  }
+  @media (max-width: 640px) {
+    .projects {
+      grid-template-columns: 1fr;
     }
   }
 `
