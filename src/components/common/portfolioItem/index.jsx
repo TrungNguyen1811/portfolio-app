@@ -41,7 +41,7 @@ export default function PortfolioItem({ type }) {
       width: 200,
       render: (title, record) => (
         <div>
-          <Text>{title}</Text>
+          <Text strong>{title}</Text>
           {record.subtitle && (
             <div>
               <Text>{record.subtitle}</Text>
