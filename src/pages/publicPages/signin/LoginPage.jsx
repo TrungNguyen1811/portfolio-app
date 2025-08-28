@@ -2,14 +2,15 @@ import { StyleCard, StyleForm } from '@/pages/publicPages/register/styled'
 import { Button, Grid, Typography, Form, Input } from 'antd'
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { getWidthCard } from '@/utils/getWidthCard'
-import useRegister from '@/hooks/useRegister'
 import useLogIn from '@/hooks/useLogin'
+import FormItemControl from '@/components/common/formItemControl'
+import {useNavigate} from 'react-router-dom'
 
 const { useBreakpoint } = Grid
 const { Text, Title, Link } = Typography
-const { Item } = Form
 
 const LoginPage = () => {
+  const navigate = useNavigate()
   const screens = useBreakpoint()
   const widthCard = getWidthCard(screens)
   const fields = [
@@ -26,41 +27,39 @@ const LoginPage = () => {
       type: 'password',
     },
   ]
-  const { formik, loading, getInputStatus, getFieldProps } = useLogIn()
+  const { formik, loading } = useLogIn()
 
   return (
     <StyleCard $width={widthCard}>
       <Title>Sign In</Title>
-      <Text>Welcome back to Portfolio Web App! Please enter your details below to sign in.</Text>
+      <Text>
+        Welcome back to Portfolio Web App! Please enter your details below to
+        sign in.
+      </Text>
 
       <StyleForm onFinish={formik.handleSubmit} labelCol={{ span: 6 }}>
         {fields.map((field) => {
           const InputComponent =
             field.type === 'password' ? Input.Password : Input
           return (
-            <Item
-              key={field.name}
-              {...getFieldProps(field.name)}
-            >
+            <FormItemControl key={field.name} name={field.name} formik={formik}>
               <InputComponent
                 name={field.name}
                 value={formik.values[field.name]}
+                type={field.type}
+                size='large'
                 prefix={field.icon}
-                type={field.type || 'text'}
-                size='medium'
                 placeholder={field.placeholder}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                statue={getInputStatus(field.name)}
               />
-            </Item>
+            </FormItemControl>
           )
         })}
 
         <Button
           htmlType='submit'
           type='primary'
-          disabled={loading}
           loading={loading}
           block
           size='medium'
@@ -70,7 +69,7 @@ const LoginPage = () => {
       </StyleForm>
       <div>
         <Text>Don't have an account?</Text>
-        <Link href='/register'> Sign up now</Link>
+        <Link onClick={() => navigate("/register")}> Sign up now</Link>
       </div>
     </StyleCard>
   )

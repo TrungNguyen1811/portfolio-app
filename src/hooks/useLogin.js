@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
+import { App } from 'antd'
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -13,44 +14,42 @@ const validationSchema = Yup.object({
 })
 
 const useLogIn = () => {
+  const { loading } = useSelector((state) => state.user)
+  const { message } = App.useApp()
   const dispatch = useDispatch()
-  const { loading, error } = useSelector((state) => state.user)
-
   const navigate = useNavigate()
+
+  const initialValues = {
+    email: '',
+    password: '',
+  }
+
   const onSubmit = (data) => {
     dispatch(
       signInRequest({
         values: data,
-        callback: () => {
-          navigate('/')
+        callback: ({ success, messageResponse }) => {
+          console.log(messageResponse)
+          if (success) {
+            message.success(messageResponse)
+            navigate('/')
+          } else {
+            message.error(messageResponse)
+          }
         },
       })
     )
   }
 
   const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
+    initialValues,
     validationSchema,
     validateOnChange: false,
+    validateOnBlur: true,
     onSubmit,
   })
 
-  const getFieldProps = (name) => ({
-    validateStatus:
-      formik.touched[name] && formik.errors[name] ? 'error' : undefined,
-    help:
-      formik.touched[name] && formik.errors[name]
-        ? formik.errors[name]
-        : undefined,
-  })
-
-  const getInputStatus = (name) =>
-    formik.touched[name] && formik.errors[name] ? 'error' : undefined
-
-  return { formik, getFieldProps, getInputStatus, loading, error }
+  return { formik, loading }
 }
 
 export default useLogIn

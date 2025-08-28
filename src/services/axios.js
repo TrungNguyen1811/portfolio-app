@@ -26,7 +26,20 @@ instance.interceptors.response.use(
   (response) => response, // Directly return successful responses.
   async (error) => {
     const originalRequest = error.config
-    if (error.response.status === 401 && !originalRequest._retry) {
+
+    if (
+      originalRequest.url.includes('/login') ||
+      originalRequest.url.includes('/register')
+    ) {
+      return Promise.reject(error)
+    }
+
+    if (
+      error.response.status === 401 &&
+      !originalRequest._retry &&
+      (!originalRequest.url.includes('/login') ||
+        !originalRequest.url.includes('/register'))
+    ) {
       originalRequest._retry = true // Mark the request as retried to avoid infinite loops.
       try {
         const refreshToken = localStorage.getItem('refreshToken') // Retrieve the stored refresh accessToken.
@@ -56,4 +69,3 @@ instance.interceptors.response.use(
     return Promise.reject(error) // For all other errors, return the error as is.
   }
 )
-
