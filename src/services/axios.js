@@ -28,9 +28,10 @@ instance.interceptors.response.use(
     const originalRequest = error.config
 
     if (
-      originalRequest.url.includes('/login') ||
-      originalRequest.url.includes('/register')
+      error.response.status === 404 &&
+      originalRequest.url.includes('/public')
     ) {
+      window.location.href = '/not-found'
       return Promise.reject(error)
     }
 
