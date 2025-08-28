@@ -1,6 +1,13 @@
-import Education from './education'
-import Portfolio from './portfolio'
+import EducationManagement from './education'
+import ExperienceManagement from './experience'
+import ProjectManagement from './project'
+import PortfolioManagement from './portfolio'
 import ProfilePage from '@/pages/privatePages/profile'
-import Experience from './experience'
 
-export default { Portfolio, Education, ProfilePage, Experience }
+export default {
+  PortfolioManagement,
+  EducationManagement,
+  ProjectManagement,
+  ExperienceManagement,
+  ProfilePage,
+}
