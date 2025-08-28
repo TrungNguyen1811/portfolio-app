@@ -9,6 +9,13 @@ const StyledLayout = styled(Layout)`
   background-color: transparent;
   color: #fff;
   margin: 0 auto;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    padding: 2rem 2rem;
+  }
 `
 export { StyledLayout }
 

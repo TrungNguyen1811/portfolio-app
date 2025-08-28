@@ -1,9 +1,11 @@
 import { usePortfolioItems } from '@/hooks/usePortfolioItem'
 import { ExperienceStyled } from './styled'
 import { Spin } from 'antd'
+import { useFormatDate } from '@/hooks/useFormatDate'
 
 export function Experience() {
   const { portfolioItems, loading, error } = usePortfolioItems('experience')
+  const { formatDate } = useFormatDate()
 
   if (loading) {
     return (
@@ -27,12 +29,13 @@ export function Experience() {
   return (
     <ExperienceStyled>
       <h2>Experience</h2>
-      {portfolioItems.map((item) => (
-        <section className='experience__item'>
+      {portfolioItems.map((item, index) => (
+        <section key={index} className='experience__item'>
           <div>
             <h4 className='experience__position'>{item.title}</h4>
             <p className='experience__company'>
-              {item.subtitle} - {item.startDate} – {item.endDate}
+              {item.subtitle} - {formatDate(item.startDate)} –{' '}
+              {formatDate(item.endDate) || 'Present'}
             </p>
           </div>
           <ul className='experience__details'>

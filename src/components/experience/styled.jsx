@@ -21,4 +21,7 @@ export const ExperienceStyled = styled.div`
   .experience__details {
     padding-left: 2rem;
   }
+  @media (max-width: 768px) {
+    padding: 2rem 0;
+  }
 `

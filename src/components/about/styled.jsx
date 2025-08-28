@@ -25,7 +25,6 @@ export const AboutStyled = styled.div`
       &__list {
         display: flex;
         ul {
-          // list-style: none;
           padding: 0 2rem;
 
           li {
@@ -40,7 +39,6 @@ export const AboutStyled = styled.div`
       &__icons {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
         gap: 2rem;
         margin-top: 1rem;
 
@@ -54,6 +52,11 @@ export const AboutStyled = styled.div`
           }
         }
       }
+    }
+  }
+  @media (max-width: 768px) {
+    .about {
+      padding: 2rem 0;
     }
   }
 `

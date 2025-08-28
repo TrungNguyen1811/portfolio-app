@@ -2,6 +2,9 @@ import styled from 'styled-components'
 
 export const EducationStyled = styled.div`
   padding: 9rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
   h2 {
     text-align: center;
@@ -35,5 +38,9 @@ export const EducationStyled = styled.div`
       font-size: 3.2rem;
       color: var(--primary-color);
     }
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 0;
   }
 `

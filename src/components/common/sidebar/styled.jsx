@@ -22,6 +22,7 @@ const AsideStyles = styled.aside`
     }
     &__position {
       font-size: 24px;
+      text-align: center;
     }
     &__address {
       background-color: rgba(255, 255, 255, 0.1);
