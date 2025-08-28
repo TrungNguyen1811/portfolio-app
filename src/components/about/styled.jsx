@@ -44,16 +44,18 @@ export const AboutStyled = styled.div`
 
         svg {
           font-size: 4.8rem;
+          transition: transform 0.3s ease-in-out;
 
           &:hover {
             color: ${color.primary};
-            transform: scale(1.1);
-            transition: all 0.3s ease-in-out;
+            transform: scale(1.15) translateY(-3px);
+            animation: all 1.5s infinite ease-in-out;
           }
         }
       }
     }
   }
+
   @media (max-width: 768px) {
     .about {
       padding: 2rem 0;

@@ -11,6 +11,7 @@ export const HeaderStyled = styled.header`
     max-width: 500px;
     width: 100%;
     gap: 2rem;
+    font-weight: 700;
 
     position: fixed;
     top: 2rem;
@@ -24,13 +25,28 @@ export const HeaderStyled = styled.header`
     z-index: 10;
 
     a {
+      position: relative;
       color: ${color.foreground};
       text-decoration: none;
       font-size: 1.6rem;
       transition: color 0.3s ease;
 
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: ${color.primary};
+        transition: all 0.3s ease-in-out;
+      }
+
       &:hover {
         color: ${color.primary};
+        &::after {
+          width: 100%;
+        }
       }
 
       &.active {
