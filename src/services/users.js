@@ -3,10 +3,7 @@ import instance from './axios'
 const USERS_API = {
   put: async (user) => {
     try {
-      const res = await instance.put(`/users/update-myself`, {
-        fullname: user.fullname,
-        email: user.email,
-      })
+      const res = await instance.put(`/users/update-myself`, user)
 
       return res.data
     } catch (error) {

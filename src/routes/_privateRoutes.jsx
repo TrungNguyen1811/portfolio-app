@@ -38,6 +38,10 @@ const privateRoutes = {
       path: '/management/experience',
       element: <Portfolio />,
     },
+    {
+      path: '/management/profile',
+      element: <PrivatePages.ProfilePage />,
+    },
   ],
 }
 
