@@ -36,13 +36,19 @@ export const ProjectStyled = styled.div`
       }
 
       &-description {
+        height: 5rem;
         font-size: 1.6rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       &-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        row-gap: 0.8rem;
       }
 
       &-banner {

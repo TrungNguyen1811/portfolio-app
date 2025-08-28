@@ -18,6 +18,8 @@ const AsideStyles = styled.aside`
 
     &__avatar {
       width: 200px;
+      height: 200px;
+      object-fit: cover;
       border-radius: 50%;
     }
     &__position {
