@@ -139,7 +139,7 @@ export default function ModalPortfolio({
               />
             </FormItemControl>
           </Col>
-          {type === 'education' && (
+          {type === 'project' && (
             <Col xs={24} md={24}>
               <FormItemControl
                 label={<Text strong>Tag</Text>}

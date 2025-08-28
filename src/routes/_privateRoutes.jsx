@@ -28,15 +28,19 @@ const privateRoutes = {
   children: [
     {
       index: true,
-      element: <PrivatePages.Portfolio />,
+      element: <PrivatePages.PortfolioManagement />,
     },
     {
       path: '/management/education',
-      element: <PrivatePages.Education />,
+      element: <PrivatePages.EducationManagement />,
     },
     {
       path: '/management/experience',
-      element: <PrivatePages.Experience />,
+      element: <PrivatePages.ExperienceManagement />,
+    },
+    {
+      path: '/management/projects',
+      element: <PrivatePages.ProjectManagement />,
     },
     {
       path: '/management/profile',
