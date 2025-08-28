@@ -4,6 +4,7 @@ import { Tag } from 'antd'
 import ProjectBanner from '@/assets/images/projects/banner-project.jpg'
 import { usePortfolioItems } from '@/hooks/usePortfolioItem'
 import { Spin } from 'antd'
+import { Tooltip } from 'antd'
 
 export function Project() {
   const { portfolioItems, loading, error } = usePortfolioItems('project')
@@ -50,12 +51,16 @@ export function Project() {
                   {item.subtitle}
                 </Tag>
               </div>
-              <p className='projects__item-description'>{item.description}</p>
+              <p className='projects__item-description'>
+                <Tooltip title={item.description}>{item.description}</Tooltip>
+              </p>
               <div className='projects__item-tags'>
-                <Tag>{item.tag}</Tag>
-                <Tag>Ant Design</Tag>
-                <Tag>Formik</Tag>
-                <Tag>Redux Saga</Tag>
+                {item.tag &&
+                  item.tag.split(',').map((tag, i) => (
+                    <Tag key={i} bordered={false}>
+                      {tag.trim()}
+                    </Tag>
+                  ))}
               </div>
             </div>
           </section>
