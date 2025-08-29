@@ -1,6 +1,5 @@
 import { CloseOutlined } from '@ant-design/icons'
 import { Modal, Form, Row, Col, Typography, Button } from 'antd'
-import * as Yup from 'yup'
 import FormItemControl from '@/components/common/formItemControl'
 import { Input } from 'antd'
 import { DatePicker } from 'antd'
@@ -8,7 +7,6 @@ import { Flex } from 'antd'
 import UploadImage from '../uploadImage'
 
 import usePortfolioItemModal from '@/hooks/usePortfolioItemModal'
-import { Select } from 'antd/es'
 import SelectTag from '../selectTag'
 
 const { Text } = Typography

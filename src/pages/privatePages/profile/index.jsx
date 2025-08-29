@@ -7,11 +7,12 @@ import {
   Form,
   Input,
   Select,
-  Popconfirm
+  Popconfirm,
 } from 'antd'
 import useProfile from '@/hooks/useProfile'
 import { StyleCard, StyleFormItemControl } from './styled'
 import { ProfileAvatarStyle } from '@/components/privateHeader/styled'
+import { Spin } from 'antd'
 
 const ProfilePage = () => {
   const {
@@ -31,64 +32,126 @@ const ProfilePage = () => {
     ? 'Are you sure you want to set your portfolio to private?'
     : 'Are you sure you want to set your portfolio to public?'
 
-  const fields = [
-    { label: 'Full Name', name: 'fullname', type: 'text' },
-    { label: 'Nick Name', name: 'nickName', type: 'text' },
-    { label: 'Birthday', name: 'birthday', type: 'date' },
-    {
-      label: 'Genre',
-      name: 'genre',
-      type: 'select',
-      options: [
-        { label: 'Male', value: 'male' },
-        { label: 'Female', value: 'female' },
-        { label: 'Other', value: 'other' },
-      ],
-    },
-    { label: 'Email', name: 'email', type: 'email', readOnly: true },
-    { label: 'Phone', name: 'phone', type: 'tel' },
+  const options = [
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+    { label: 'Other', value: 'other' },
   ]
+
+  const handleSelect = (value) => {
+    formik.setFieldValue('genre', value)
+  }
 
   return (
     <Row gutter={24}>
-      <Col xs={{span: 24, order: 2}} lg={{span:16, order: 1}}>
+      <Col xs={{ span: 24, order: 2 }} lg={{ span: 16, order: 1 }}>
         <Card title='General information'>
           <Form onFinish={formik.handleSubmit} layout='vertical'>
             <Row gutter={16}>
-              {fields.map((field) => (
-                <Col xs={{span: 24}} lg={{span: 12}} key={field.name}>
-                  <StyleFormItemControl
-                    label={field.label}
-                    name={field.name}
-                    formik={formik}
-                  >
-                    {field.type === 'select' ? (
-                      <Select
-                        size='large'
-                        placeholder={field.label}
-                        value={formik.values[field.name]}
-                        onChange={(value) =>
-                          formik.setFieldValue(field.name, value)
-                        }
-                        options={field.options}
-                      />
-                    ) : (
-                      <Input
-                        size='large'
-                        placeholder={field.label}
-                        name={field.name}
-                        type={field.type}
-                        value={formik.values[field.name]}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        disabled={field.readOnly}
-                      />
-                    )}
-                  </StyleFormItemControl>
-                </Col>
-              ))}
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <StyleFormItemControl
+                  label='Full Name'
+                  name='fullname'
+                  formik={formik}
+                >
+                  <Input
+                    size='large'
+                    placeholder='Full Name'
+                    name='fullname'
+                    value={formik.values.fullname}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                </StyleFormItemControl>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <StyleFormItemControl
+                  label='Nick Name'
+                  name='nickName'
+                  formik={formik}
+                >
+                  <Input
+                    size='large'
+                    placeholder='Nick Name'
+                    name='nickName'
+                    value={formik.values.nickName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                </StyleFormItemControl>
+              </Col>
             </Row>
-
+            <Row gutter={16}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <StyleFormItemControl
+                  label='Birthday'
+                  name='birthday'
+                  formik={formik}
+                >
+                  <Input
+                    size='large'
+                    placeholder='Birthday'
+                    name='birthday'
+                    type='date'
+                    value={formik.values.birthday}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                </StyleFormItemControl>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <StyleFormItemControl
+                  label='Genre'
+                  name='genre'
+                  formik={formik}
+                >
+                  <Select
+                    size='large'
+                    placeholder='Genre'
+                    name='genre'
+                    value={formik.values.genre}
+                    onChange={handleSelect}
+                    options={options}
+                  />
+                </StyleFormItemControl>
+              </Col>
+            </Row>
+            <Row gutter={16}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <StyleFormItemControl
+                  label='Email'
+                  name='email'
+                  formik={formik}
+                >
+                  <Input
+                    size='large'
+                    placeholder='Email'
+                    name='email'
+                    type='email'
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                </StyleFormItemControl>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <StyleFormItemControl
+                  label='Phone'
+                  name='phone'
+                  formik={formik}
+                >
+                  <Input
+                    size='large'
+                    placeholder='Phone'
+                    name='phone'
+                    type='tel'
+                    value={formik.values.phone}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                </StyleFormItemControl>
+              </Col>
+            </Row>
             <Flex justify='end'>
               <Button type='primary' htmlType='submit' loading={loading}>
                 Save
@@ -98,7 +161,7 @@ const ProfilePage = () => {
         </Card>
       </Col>
 
-      <Col xs={{span:24, order: 1}} lg={{span: 8, order: 2}}>
+      <Col xs={{ span: 24, order: 1 }} lg={{ span: 8, order: 2 }}>
         <StyleCard>
           <ProfileAvatarStyle
             size={86}
