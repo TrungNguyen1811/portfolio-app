@@ -56,7 +56,7 @@ function* updatePortfolioItem(action) {
     message.success(messageResponse)
   } catch (error) {
     yield put(updatePortfolioItemFailure(error.message))
-    message.success(error?.message)
+    message.error(error?.message)
   }
 }
 
