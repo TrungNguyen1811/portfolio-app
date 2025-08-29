@@ -6,17 +6,18 @@ import {
 } from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
-import avatar from '@/assets/images/avatar.jpg'
 import AsideStyles from './styled'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { fetchPortfoliosRequest } from '@/sagas/portfolios/portfolioSlice'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { Spin } from 'antd'
 
 export function SideBar() {
   const dispatch = useDispatch()
-  const { portfolio } = useSelector((state) => state.portfolios) || {}
+  const { portfolio, loadingPortfolio } =
+    useSelector((state) => state.portfolios) || {}
   const { slug } = useParams()
 
   const SOCIAL_ICONS = {
@@ -24,23 +25,35 @@ export function SideBar() {
     linkedin: <LinkedinOutlined />,
     instagram: <InstagramOutlined />,
   }
-
-  useEffect(() => {
+  const handleGetPortfolio = () => {
     if (slug) {
       dispatch(fetchPortfoliosRequest(slug))
     }
-  }, [slug, dispatch])
+  }
 
+  useEffect(() => {
+    handleGetPortfolio()
+  }, [slug])
+
+  if (loadingPortfolio) {
+    return (
+      <AsideStyles>
+        <div className='message-wrapper'>
+          <Spin />
+        </div>
+      </AsideStyles>
+    )
+  }
   return (
     <AsideStyles>
       <section>
         <div className='profile'>
           <img
             className='profile__avatar'
-            src={portfolio.info?.avatar || avatar}
+            src={portfolio.info?.avatar}
             alt='avatar'
           />
-          <h1>{portfolio.user?.fullname || 'Anonymous'}</h1>
+          <h1>{portfolio.user?.fullname}</h1>
           <p className='profile__position'>Frontend Developer</p>
           <div className='profile__address'>
             <EnvironmentOutlined />

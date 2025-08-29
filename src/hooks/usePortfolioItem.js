@@ -1,24 +1,41 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPortfolioItemsRequest } from '@/sagas/portfolios/portfolioSlice'
+import {
+  getPortfolioItemsRequest,
+  resetPortfolioItems as resetPortfolioItemsAction,
+} from '@/sagas/portfolios/portfolioSlice'
+import { useParams } from 'react-router-dom'
 
 export const usePortfolioItems = (type) => {
+  const { slug } = useParams()
   const dispatch = useDispatch()
+
   const { portfolioItems, loading, error } = useSelector(
     (state) => state.portfolios
   )
-  const { user } = useSelector((state) => state.user)
+
+  const getPortfolioItems = useCallback(() => {
+    if (slug && type) {
+      dispatch(getPortfolioItemsRequest({ slug, type }))
+    }
+  }, [dispatch, slug, type])
+
+  const resetPortfolioItems = useCallback(() => {
+    dispatch(resetPortfolioItemsAction())
+  }, [dispatch])
 
   useEffect(() => {
-    if (user?.portfolioSlug && type) {
-      dispatch(
-        getPortfolioItemsRequest({
-          slug: user.portfolioSlug,
-          type,
-        })
-      )
+    getPortfolioItems()
+    return () => {
+      resetPortfolioItems()
     }
-  }, [dispatch, user?.portfolioSlug, type])
+  }, [getPortfolioItems, resetPortfolioItems])
 
-  return { portfolioItems, loading, error }
+  return {
+    portfolioItems,
+    loading,
+    error,
+    getPortfolioItems,
+    resetPortfolioItems,
+  }
 }

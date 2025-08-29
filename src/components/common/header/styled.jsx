@@ -42,16 +42,12 @@ export const HeaderStyled = styled.header`
         transition: all 0.3s ease-in-out;
       }
 
-      &:hover {
+      &:hover,
+      &.active {
         color: ${color.primary};
         &::after {
           width: 100%;
         }
-      }
-
-      &.active {
-        color: ${color.primary};
-        font-weight: 600;
       }
     }
   }

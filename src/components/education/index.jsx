@@ -4,10 +4,24 @@ import { EducationStyled } from './styled'
 import { usePortfolioItems } from '@/hooks/usePortfolioItem'
 import { Spin } from 'antd'
 import { useFormatDate } from '@/hooks/useFormatDate'
+import { useEffect } from 'react'
 
-export function Education() {
-  const { portfolioItems, loading, error } = usePortfolioItems('education')
+export default function Education() {
+  const {
+    portfolioItems,
+    loading,
+    error,
+    getPortfolioItems,
+    resetPortfolioItems,
+  } = usePortfolioItems('education')
   const { formatDate } = useFormatDate()
+
+  useEffect(() => {
+    // getPortfolioItems()
+    // return () => {
+    //   resetPortfolioItems()
+    // }
+  }, [])
 
   if (loading) {
     return (

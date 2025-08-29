@@ -3,7 +3,7 @@ import { ExperienceStyled } from './styled'
 import { Spin } from 'antd'
 import { useFormatDate } from '@/hooks/useFormatDate'
 
-export function Experience() {
+export default function Experience() {
   const { portfolioItems, loading, error } = usePortfolioItems('experience')
   const { formatDate } = useFormatDate()
 
