@@ -4,7 +4,7 @@ import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { getWidthCard } from '@/utils/getWidthCard'
 import useLogIn from '@/hooks/useLogin'
 import FormItemControl from '@/components/common/formItemControl'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const { useBreakpoint } = Grid
 const { Text, Title, Link } = Typography
@@ -13,20 +13,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const screens = useBreakpoint()
   const widthCard = getWidthCard(screens)
-  const fields = [
-    {
-      name: 'email',
-      icon: <MailOutlined />,
-      placeholder: 'Email',
-      type: 'email',
-    },
-    {
-      name: 'password',
-      icon: <LockOutlined />,
-      placeholder: 'Password',
-      type: 'password',
-    },
-  ]
+
   const { formik, loading } = useLogIn()
 
   return (
@@ -38,24 +25,30 @@ const LoginPage = () => {
       </Text>
 
       <StyleForm onFinish={formik.handleSubmit} labelCol={{ span: 6 }}>
-        {fields.map((field) => {
-          const InputComponent =
-            field.type === 'password' ? Input.Password : Input
-          return (
-            <FormItemControl key={field.name} name={field.name} formik={formik}>
-              <InputComponent
-                name={field.name}
-                value={formik.values[field.name]}
-                type={field.type}
-                size='large'
-                prefix={field.icon}
-                placeholder={field.placeholder}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </FormItemControl>
-          )
-        })}
+        <FormItemControl name='email' formik={formik}>
+          <Input
+            name='email'
+            value={formik.values.email}
+            type='email'
+            size='large'
+            prefix={<MailOutlined />}
+            placeholder='Email'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </FormItemControl>
+        <FormItemControl name='password' formik={formik}>
+          <Input.Password
+            name='password'
+            value={formik.values.password}
+            type='password'
+            size='large'
+            prefix={ <LockOutlined />}
+            placeholder='Password'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+        </FormItemControl>
 
         <Button
           htmlType='submit'
@@ -69,7 +62,7 @@ const LoginPage = () => {
       </StyleForm>
       <div>
         <Text>Don't have an account?</Text>
-        <Link onClick={() => navigate("/register")}> Sign up now</Link>
+        <Link onClick={() => navigate('/register')}> Sign up now</Link>
       </div>
     </StyleCard>
   )
