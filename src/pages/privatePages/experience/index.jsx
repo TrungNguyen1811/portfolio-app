@@ -9,12 +9,20 @@ import { useDispatch } from 'react-redux'
 const ExperienceManagement = () => {
   const dispatch = useDispatch()
 
+  const handleGetPortfolioItem = async () => {
+    await dispatch(getPortfolioItemRequest('experience'))
+  }
+
+  const handleResetPortfolioItemManage = async () => {
+    await dispatch(resetPortfolioItemManage())
+  }
+
   useEffect(() => {
-    dispatch(getPortfolioItemRequest('experience'))
+    handleGetPortfolioItem()
     return () => {
-      dispatch(resetPortfolioItemManage())
+      handleResetPortfolioItemManage()
     }
-  }, [dispatch])
+  }, [])
 
   return <PortfolioItem type={'experience'} />
 }

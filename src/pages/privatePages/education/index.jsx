@@ -9,12 +9,20 @@ import { useDispatch } from 'react-redux'
 const EducationManagement = () => {
   const dispatch = useDispatch()
 
+  const handleGetPortfolioItem = async () => {
+    await dispatch(getPortfolioItemRequest('education'))
+  }
+
+  const handleResetPortfolioItemManage = async () => {
+    await dispatch(resetPortfolioItemManage())
+  }
+
   useEffect(() => {
-    dispatch(getPortfolioItemRequest('education'))
+    handleGetPortfolioItem()
     return () => {
-      dispatch(resetPortfolioItemManage())
+      handleResetPortfolioItemManage()
     }
-  }, [dispatch])
+  }, [])
 
   return <PortfolioItem type={'education'} />
 }

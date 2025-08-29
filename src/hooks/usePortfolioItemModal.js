@@ -6,7 +6,6 @@ import { fileToBase64 } from '@/utils/getImage'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import { useState } from 'react'
-import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Yup from 'yup'
 
@@ -15,22 +14,19 @@ const usePortfolioItemModal = ({ editingItem, onSubmitSuccess, onClose }) => {
   const dispatch = useDispatch()
   const [file, setFile] = useState(null)
 
-  const initialValues = useMemo(
-    () => ({
-      title: editingItem?.title || '',
-      subtitle: editingItem?.subtitle || '',
-      description: editingItem?.description || '',
-      startDate: editingItem?.startDate ? dayjs(editingItem.startDate) : null,
-      endDate: editingItem?.endDate ? dayjs(editingItem.endDate) : null,
-      imageUrl: editingItem?.imageUrl || null,
-      linkUrl: editingItem?.linkUrl || null,
-      tag: editingItem?.tag || '',
-    }),
-    [editingItem]
-  )
+  const getInitialValues = (editValue) => ({
+    title: editValue?.title || '',
+    subtitle: editValue?.subtitle || '',
+    description: editValue?.description || '',
+    startDate: editValue?.startDate ? dayjs(editValue.startDate) : null,
+    endDate: editValue?.endDate ? dayjs(editValue.endDate) : null,
+    imageUrl: editValue?.imageUrl || null,
+    linkUrl: editValue?.linkUrl || null,
+    tag: editValue?.tag || '',
+  })
 
   const formik = useFormik({
-    initialValues: initialValues,
+    initialValues: getInitialValues(editingItem),
     enableReinitialize: true,
     validationSchema: Yup.object({
       title: Yup.string().required('Title is required'),
@@ -58,14 +54,14 @@ const usePortfolioItemModal = ({ editingItem, onSubmitSuccess, onClose }) => {
       }
 
       if (editingItem) {
-        dispatch(
+        await dispatch(
           updatePortfolioItemRequest({
             values: { ...formValues, id: editingItem.id },
             callback: onSubmitSuccess,
           })
         )
       } else
-        dispatch(
+        await dispatch(
           addPortfolioItemRequest({
             values: formValues,
             callback: onSubmitSuccess,

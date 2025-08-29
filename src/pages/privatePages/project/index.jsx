@@ -9,12 +9,20 @@ import { useDispatch } from 'react-redux'
 const ProjectManagement = () => {
   const dispatch = useDispatch()
 
+  const handleGetPortfolioItem = async () => {
+    await dispatch(getPortfolioItemRequest('project'))
+  }
+
+  const handleResetPortfolioItemManage = async () => {
+    await dispatch(resetPortfolioItemManage())
+  }
+
   useEffect(() => {
-    dispatch(getPortfolioItemRequest('project'))
+    handleGetPortfolioItem()
     return () => {
-      dispatch(resetPortfolioItemManage())
+      handleResetPortfolioItemManage()
     }
-  }, [dispatch])
+  }, [])
 
   return <PortfolioItem type={'project'} />
 }
