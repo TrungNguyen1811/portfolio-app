@@ -35,6 +35,14 @@ export const ProjectStyled = styled.div`
         flex-wrap: wrap;
       }
 
+      &-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       &-description {
         height: 5rem;
         font-size: 1.6rem;
@@ -49,6 +57,7 @@ export const ProjectStyled = styled.div`
         display: flex;
         flex-wrap: wrap;
         row-gap: 0.8rem;
+        text-transform: capitalize;
       }
 
       &-banner {

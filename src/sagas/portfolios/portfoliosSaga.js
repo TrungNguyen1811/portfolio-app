@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import {
   fetchPortfoliosRequest,
   fetchPortfoliosSuccess,
@@ -32,5 +32,5 @@ function* handleGetPortfolioItems(action) {
 
 export default function* portfoliosSaga() {
   yield takeEvery(fetchPortfoliosRequest.type, handleFetchPortfolios)
-  yield takeEvery(getPortfolioItemsRequest.type, handleGetPortfolioItems)
+  yield takeLatest(getPortfolioItemsRequest.type, handleGetPortfolioItems)
 }

@@ -164,5 +164,8 @@ const AsideStyles = styled.aside`
       }
     }
   }
+  @media (max-width: 768px) {
+    padding-bottom: 0rem;
+  }
 `
 export default AsideStyles

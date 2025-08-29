@@ -7,19 +7,21 @@ const portfoliosSlice = createSlice({
     portfolioItems: [],
     loading: false,
     error: null,
+    loadingPortfolio: false,
+    errorPortfolio: null,
   },
   reducers: {
     fetchPortfoliosRequest: (state) => {
-      state.loading = true
-      state.error = null
+      state.loadingPortfolio = true
+      state.errorPortfolio = null
     },
     fetchPortfoliosSuccess: (state, action) => {
-      state.loading = false
+      state.loadingPortfolio = false
       state.portfolio = action.payload
     },
     fetchPortfoliosFailure: (state, action) => {
-      state.loading = false
-      state.error = action.payload
+      state.loadingPortfolio = false
+      state.errorPortfolio = action.payload
     },
 
     getPortfolioItemsRequest: (state) => {
@@ -34,6 +36,12 @@ const portfoliosSlice = createSlice({
       state.loading = false
       state.error = action.payload
     },
+
+    resetPortfolioItems: (state) => {
+      state.portfolioItems = []
+      state.loading = false
+      state.error = null
+    },
   },
 })
 
@@ -44,6 +52,7 @@ export const {
   getPortfolioItemsRequest,
   getPortfolioItemsSuccess,
   getPortfolioItemsFailure,
+  resetPortfolioItems,
 } = portfoliosSlice.actions
 
 export default portfoliosSlice.reducer
