@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import {
@@ -17,24 +17,22 @@ const usePortfolioManage = () => {
 
   const [file, setFile] = useState(null)
 
-  const initialValues = useMemo(
-    () => ({
-      overview: portfolio?.overview || '',
-      socials: portfolio?.socials || [],
-      cvUrl: portfolio?.cvUrl || '',
-      avatar: portfolio?.avatar || null,
-      email: portfolio?.email || '',
-      facebook:
-        portfolio?.socials?.find((s) => s.title === 'facebook')?.url || '',
-      linkedin:
-        portfolio?.socials?.find((s) => s.title === 'linkedin')?.url || '',
-      instagram:
-        portfolio?.socials?.find((s) => s.title === 'instagram')?.url || '',
-    }),
-    [portfolio]
-  )
+  const getInitialValues = (editValue) => ({
+    overview: editValue?.overview || '',
+    socials: editValue?.socials || [],
+    cvUrl: editValue?.cvUrl || '',
+    avatar: editValue?.avatar || null,
+    email: editValue?.email || '',
+    facebook:
+      editValue?.socials?.find((s) => s.title === 'facebook')?.url || '',
+    linkedin:
+      editValue?.socials?.find((s) => s.title === 'linkedin')?.url || '',
+    instagram:
+      editValue?.socials?.find((s) => s.title === 'instagram')?.url || '',
+  })
+
   const formik = useFormik({
-    initialValues,
+    initialValues: getInitialValues(portfolio),
     enableReinitialize: true,
     validationSchema: Yup.object({
       overview: Yup.string().required('Overview is required'),
@@ -67,12 +65,12 @@ const usePortfolioManage = () => {
     setFile(file)
   }
 
-  const getDataPortfolio = () => {
-    dispatch(getPortfolioRequest())
+  const getDataPortfolio = async () => {
+    await dispatch(getPortfolioRequest())
   }
 
-  const handleUpdatePortfolio = (data) => {
-    dispatch(updatePortfolioRequest(data))
+  const handleUpdatePortfolio = async (data) => {
+    await dispatch(updatePortfolioRequest(data))
   }
 
   return {

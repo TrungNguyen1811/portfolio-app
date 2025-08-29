@@ -16,6 +16,7 @@ const Portfolio = () => {
     loading,
     actionLoading,
   } = usePortfolioManage()
+
   useEffect(() => {
     getDataPortfolio()
   }, [])
