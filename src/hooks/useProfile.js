@@ -3,7 +3,6 @@ import {
   updateUserRequest,
 } from '@/sagas/users/userSlice'
 import { useFormik } from 'formik'
-import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Yup from 'yup'
 import { App } from 'antd'
@@ -13,19 +12,16 @@ const useProfile = () => {
   const dispatch = useDispatch()
 
   const { message } = App.useApp()
-  const isPublic = useMemo(() => Boolean(user.isPublic), [user.isPublic])
+  const isPublic = Boolean(user.isPublic)
 
-  const initialValues = useMemo(
-    () => ({
-      fullname: user.fullname || '',
-      nickName: user.nickName || '',
-      birthday: user.birthday || '',
-      genre: user.genre || 'other',
-      email: user.email || '',
-      phone: user.phone || '',
-    }),
-    [user]
-  )
+  const initialValues = {
+    fullname: user.fullname || '',
+    nickName: user.nickName || '',
+    birthday: user.birthday || '',
+    genre: user.genre || 'other',
+    email: user.email || '',
+    phone: user.phone || '',
+  }
 
   const validationSchema = Yup.object({
     fullname: Yup.string(),
@@ -38,14 +34,16 @@ const useProfile = () => {
       .nullable(),
   })
 
-  const onSubmit = (data) => {
-    dispatch(
+  const onSubmit = async (data) => {
+    await dispatch(
       updateUserRequest({
         values: data,
         callback: ({ success, messageResponse }) => {
           if (success) {
             message.success(messageResponse)
-          } else message.error(messageResponse)
+          } else {
+            message.error(messageResponse)
+          }
         },
       })
     )
@@ -60,8 +58,8 @@ const useProfile = () => {
     validateOnBlur: true,
   })
 
-  const handPublicPortfolio = () => {
-    dispatch(
+  const handPublicPortfolio = async () => {
+    await dispatch(
       updatePublicPortfolioRequest({
         value: !isPublic,
         callback: ({ success, messageResponse }) => {
