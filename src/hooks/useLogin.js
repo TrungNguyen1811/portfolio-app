@@ -28,13 +28,8 @@ const useLogIn = () => {
     await dispatch(
       signInRequest({
         values: data,
-        callback: ({ success, messageResponse }) => {
-          if (success) {
-            message.success(messageResponse)
-            navigate('/management')
-          } else {
-            message.error(messageResponse)
-          }
+        callback: () => {
+          navigate('/management')
         },
       })
     )

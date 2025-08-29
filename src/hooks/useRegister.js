@@ -37,13 +37,8 @@ const useRegister = () => {
     await dispatch(
       registerRequest({
         values: data,
-        callback: ({ success, messageResponse }) => {
-          if (success) {
-            message.success(messageResponse)
-            navigate('/login')
-          } else {
-            message.error(messageResponse)
-          }
+        callback: () => {
+          navigate('/login')
         },
       })
     )

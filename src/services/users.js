@@ -7,7 +7,7 @@ const USERS_API = {
 
       return res.data
     } catch (error) {
-      throw error.message
+      throw error
     }
   },
 
@@ -19,7 +19,7 @@ const USERS_API = {
 
       return res.data
     } catch (error) {
-      throw error.message
+      throw error
     }
   },
 }

@@ -35,18 +35,7 @@ const useProfile = () => {
   })
 
   const onSubmit = async (data) => {
-    await dispatch(
-      updateUserRequest({
-        values: data,
-        callback: ({ success, messageResponse }) => {
-          if (success) {
-            message.success(messageResponse)
-          } else {
-            message.error(messageResponse)
-          }
-        },
-      })
-    )
+    await dispatch(updateUserRequest(data))
   }
 
   const formik = useFormik({
@@ -59,18 +48,7 @@ const useProfile = () => {
   })
 
   const handPublicPortfolio = async () => {
-    await dispatch(
-      updatePublicPortfolioRequest({
-        value: !isPublic,
-        callback: ({ success, messageResponse }) => {
-          if (success) {
-            message.success(messageResponse)
-          } else {
-            message.error(messageResponse)
-          }
-        },
-      })
-    )
+    await dispatch(updatePublicPortfolioRequest(!isPublic))
   }
 
   const handleNavigatePortfolio = () => {
