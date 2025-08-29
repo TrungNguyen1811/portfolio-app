@@ -6,15 +6,22 @@ import usePortfolioManage from '@/hooks/usePortfolioManage'
 import FormItemControl from '@/components/common/formItemControl'
 import { useEffect } from 'react'
 import UploadImage from '@/components/common/uploadImage'
+import { Spin } from 'antd'
 
 const Portfolio = () => {
-  const { formik, handleAvatarChange, getDataPortfolio } = usePortfolioManage()
+  const {
+    formik,
+    handleAvatarChange,
+    getDataPortfolio,
+    loading,
+    actionLoading,
+  } = usePortfolioManage()
   useEffect(() => {
     getDataPortfolio()
   }, [])
 
   return (
-    <>
+    <Spin size='large' spinning={loading}>
       <Form onFinish={formik.handleSubmit} labelCol={{ span: 4 }}>
         <Row gutter={16} wrap={true}>
           <Col xs={24} md={6}>
@@ -93,12 +100,17 @@ const Portfolio = () => {
           <Col md={12}></Col>
         </Row>
         <Flex justify='end'>
-          <Button type='primary' htmlType='submit' size='large'>
+          <Button
+            type='primary'
+            htmlType='submit'
+            size='large'
+            loading={actionLoading}
+          >
             Submit
           </Button>
         </Flex>
       </Form>
-    </>
+    </Spin>
   )
 }
 

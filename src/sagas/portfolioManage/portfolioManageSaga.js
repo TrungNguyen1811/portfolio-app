@@ -25,9 +25,7 @@ function* handleUpdatePortfolio(action) {
   try {
     const { portfolio, message: messageResponse } = yield call(
       PORTFOLIO_API.put,
-      {
-        ...action.payload,
-      }
+      action.payload
     )
     yield put(updatePortfolioSuccess(portfolio))
     message.success(messageResponse)

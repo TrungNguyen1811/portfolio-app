@@ -10,7 +10,9 @@ import {
 import { fileToBase64 } from '@/utils/getImage'
 
 const usePortfolioManage = () => {
-  const { portfolio } = useSelector((state) => state.portfolioManage)
+  const { portfolio, loading, actionLoading } = useSelector(
+    (state) => state.portfolioManage
+  )
   const dispatch = useDispatch()
 
   const [file, setFile] = useState(null)
@@ -78,8 +80,9 @@ const usePortfolioManage = () => {
     handleAvatarChange,
     getDataPortfolio,
     portfolio,
+    loading,
+    actionLoading,
   }
 }
 
 export default usePortfolioManage
-
