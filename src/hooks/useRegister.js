@@ -33,8 +33,8 @@ const useRegister = () => {
     confirmPassword: '',
   }
 
-  const onSubmit = (data) => {
-    dispatch(
+  const onSubmit = async (data) => {
+    await dispatch(
       registerRequest({
         values: data,
         callback: ({ success, messageResponse }) => {

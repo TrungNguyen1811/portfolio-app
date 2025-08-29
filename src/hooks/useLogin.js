@@ -24,8 +24,8 @@ const useLogIn = () => {
     password: '',
   }
 
-  const onSubmit = (data) => {
-    dispatch(
+  const onSubmit = async (data) => {
+    await dispatch(
       signInRequest({
         values: data,
         callback: ({ success, messageResponse }) => {
