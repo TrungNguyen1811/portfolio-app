@@ -1,5 +1,4 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
-import { message } from 'antd'
 
 import {
   getPortfolioItemRequest,
@@ -15,6 +14,7 @@ import {
   deletePortfolioItemFailure,
   deletePortfolioItemRequest,
 } from './portfolioItemManageSlice'
+import { showMessage } from '../appMessage/appMessageSlice'
 
 import { PORTFOLIO_API_ITEM } from '@/services/portfolio'
 
@@ -24,7 +24,7 @@ function* getPortfolioItem(action) {
     yield put(getPortfolioItemSuccess(item))
   } catch (error) {
     yield put(getPortfolioItemFailure(error?.message))
-    message.error(error?.message)
+    yield put(showMessage.error(error?.message))
   }
 }
 
@@ -36,11 +36,13 @@ function* addPortfolioItem(action) {
       values
     )
     yield put(addPortfolioItemSuccess(item))
-    if (callback) yield call(callback)
-    message.success(messageResponse)
+    yield put(showMessage.success(messageResponse))
+    if (callback) {
+      yield call(callback)
+    }
   } catch (error) {
     yield put(addPortfolioItemFailure(error?.message))
-    message.error(error?.message)
+    yield put(showMessage.error(error?.message))
   }
 }
 
@@ -52,11 +54,13 @@ function* updatePortfolioItem(action) {
       values
     )
     yield put(updatePortfolioItemSuccess(portfolio))
-    if (callback) yield call(callback)
-    message.success(messageResponse)
+    yield put(showMessage.success(messageResponse))
+    if (callback) {
+      yield call(callback)
+    }
   } catch (error) {
     yield put(updatePortfolioItemFailure(error.message))
-    message.error(error?.message)
+    yield put(showMessage.error(error?.message))
   }
 }
 
@@ -68,11 +72,13 @@ function* deletePortfolioItem(action) {
       id
     )
     yield put(deletePortfolioItemSuccess(id))
-    if (callback) yield call(callback)
-    message.success(messageResponse)
+    yield put(showMessage.success(messageResponse))
+    if (callback) {
+      yield call(callback)
+    }
   } catch (error) {
     yield put(deletePortfolioItemFailure(error?.message))
-    message.error(error?.message)
+    yield put(showMessage.error(error?.message))
   }
 }
 
