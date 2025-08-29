@@ -4,6 +4,7 @@ import AppRoutes from '@/routes/routes'
 import { ConfigProvider, App as AppAnt } from 'antd'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './constants/theme'
+import MessageListener from './components/messageListener'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           </BrowserRouter>
         </AppAnt>
       </ThemeProvider>
+      <MessageListener />
     </ConfigProvider>
   )
 }

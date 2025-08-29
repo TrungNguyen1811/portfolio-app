@@ -1,5 +1,4 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
-import { message } from 'antd'
 
 import {
   getPortfolioRequest,
@@ -9,6 +8,7 @@ import {
   updatePortfolioSuccess,
   updatePortfolioFailure,
 } from './portfolioManageSlice'
+import { showMessage } from '../appMessage/appMessageSlice'
 
 import { PORTFOLIO_API } from '@/services/portfolio'
 
@@ -18,6 +18,7 @@ function* handleGetPortfolioInfo() {
     yield put(getPortfolioSuccess(portfolio))
   } catch (error) {
     yield put(getPortfolioFailure(error.message))
+    yield put(showMessage.error(error?.message))
   }
 }
 
@@ -28,10 +29,10 @@ function* handleUpdatePortfolio(action) {
       action.payload
     )
     yield put(updatePortfolioSuccess(portfolio))
-    message.success(messageResponse)
+    yield put(showMessage.success(messageResponse))
   } catch (error) {
     yield put(updatePortfolioFailure(error?.message))
-    message.error(error?.message)
+    yield put(showMessage.error(error?.message))
   }
 }
 
